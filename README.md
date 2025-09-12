@@ -1,1 +1,1 @@
-# jbsdg75252gesa6
+# Artefact for "SQLiFuzz: Uncover SQL Injection in Any Web Applications"
