@@ -1,0 +1,10 @@
+---
+name: ff_oauth_redirect_to_sso_login
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/461212
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194455
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550194
+milestone: '18.2'
+group: group::authentication
+type: beta
+default_enabled: false

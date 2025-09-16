@@ -1,0 +1,9 @@
+---
+name: fetch_contributions_data_from_new_tables
+feature_issue_url: https://gitlab.com/gitlab-org/analytics-section/siphon/-/issues/96
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/187192
+rollout_issue_url: 
+milestone: '18.0'
+group: group::optimize
+type: wip
+default_enabled: false

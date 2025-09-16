@@ -1,0 +1,10 @@
+---
+name: merge_request_approval_policies_target_branch_matching
+description: Reevaluate MR approval policy branch specifications
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/529997
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/191989
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547856
+milestone: '18.1'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

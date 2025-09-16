@@ -1,0 +1,44 @@
+.rd-no-preview {
+  padding: $gl-padding;
+  border-radius: var(--rd-content-border-radius);
+}
+
+.rd-no-preview-important {
+  // warning feedback background color looks over saturated in dark mode, we need to force a muted palette
+  background-color: light-dark(var(--gl-feedback-warning-background-color), #453522);
+  color: var(--gl-feedback-warning-text-color);
+}
+
+.rd-no-preview-paragraph {
+  margin: 0 0 $gl-spacing-scale-2;
+}
+
+.rd-no-preview-actions {
+  display: flex;
+
+  @media (max-width: map-get($grid-breakpoints, md)-1) {
+    flex-direction: column;
+  }
+
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    margin-top: $gl-spacing-scale-4;
+  }
+}
+
+.rd-no-preview-action {
+  display: flex;
+  flex: 1;
+
+  > * {
+    flex: 1;
+  }
+
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    flex: 0;
+    margin-right: $gl-spacing-scale-4;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, md)-1) {
+    margin-top: $gl-spacing-scale-4;
+  }
+}

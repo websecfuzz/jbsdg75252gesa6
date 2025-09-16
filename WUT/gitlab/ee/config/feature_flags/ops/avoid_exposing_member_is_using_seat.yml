@@ -1,0 +1,9 @@
+---
+name: avoid_exposing_member_is_using_seat
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/459041
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/164333
+rollout_issue_url:
+milestone: '17.4'
+group: group::utilization
+type: ops
+default_enabled: false

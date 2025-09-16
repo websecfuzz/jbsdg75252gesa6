@@ -1,0 +1,9 @@
+---
+name: use_claude_code_completion
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/523902
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/184504
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/524897
+milestone: '17.10'
+group: group::code creation
+type: beta
+default_enabled: false

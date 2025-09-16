@@ -1,0 +1,65 @@
+version: '3.1'
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=db
+    depends_on:
+      - db
+      
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  # casdoor:
+  #   restart: always
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #     target: STANDARD
+  #   entrypoint: /bin/sh -c './server --createDatabase=true'
+  #   ports:
+  #     - "8081:8000"
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     RUNNING_IN_DOCKER: "true"
+  #   volumes:
+  #     - ./conf:/conf/
+
+  casdoor:
+    restart: always
+    # image: casbin/casdoor:latest
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM casbin/casdoor:v2.37.0
+        COPY ./conf /conf/
+    entrypoint: /bin/sh -c './server --createDatabase=true'
+    ports:
+      - "8081:8000"
+    depends_on:
+      - db
+    environment:
+      driverName: "mysql"
+      dataSourceName: 'root:123456@tcp(dbproxy:3306)/'
+
+  db:
+    restart: always
+    image: mysql:8.0.25
+    platform: linux/amd64
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    # volumes:
+    #   - /usr/local/docker/mysql:/var/lib/mysql

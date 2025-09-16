@@ -1,0 +1,9 @@
+---
+name: ai_events_backfill_to_ch
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/17077
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/187345
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/534895
+milestone: '17.10'
+group: group::optimize
+type: ops
+default_enabled: true

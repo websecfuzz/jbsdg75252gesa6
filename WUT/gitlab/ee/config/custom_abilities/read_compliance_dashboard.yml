@@ -1,0 +1,14 @@
+---
+title: Read compliance dashboard
+name: read_compliance_dashboard
+description: Read compliance capabilities including adherence, violations, and frameworks
+  for groups and projects.
+introduced_by_issue: https://gitlab.com/gitlab-org/gitlab/-/issues/465324
+introduced_by_mr: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/175066
+feature_category: compliance_management
+milestone: '17.7'
+group_ability: true
+enabled_for_group_access_levels: [50]
+project_ability: true
+enabled_for_project_access_levels: [50]
+requirements: []

@@ -1,0 +1,9 @@
+---
+name: policy_mergability_check
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/444459
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/159077
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/473704
+milestone: '17.3'
+group: group::code review
+type: beta
+default_enabled: true

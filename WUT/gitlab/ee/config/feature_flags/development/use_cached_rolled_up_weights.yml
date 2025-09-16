@@ -1,0 +1,9 @@
+---
+name: use_cached_rolled_up_weights
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196959
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/554186
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/521123
+milestone: '18.3'
+type: development
+group: group::project management
+default_enabled: false

@@ -1,0 +1,10 @@
+---
+name: vsa_stage_time_scatter_chart
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/367661
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/190239
+rollout_issue_url:
+milestone: '18.1'
+group: group::optimize
+type: wip
+default_enabled: false

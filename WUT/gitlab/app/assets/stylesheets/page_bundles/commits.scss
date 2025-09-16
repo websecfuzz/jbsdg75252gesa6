@@ -1,0 +1,34 @@
+@import 'mixins_and_variables_and_functions';
+
+.add-review-item {
+  // stylelint-disable-next-line gitlab/no-gl-class
+  .gl-tab-nav-item {
+    height: 100%;
+  }
+}
+
+.add-review-item-modal {
+  .modal-content {
+    position: absolute;
+    top: 5%;
+  }
+
+  .title-hint-text {
+    color: var(--gl-text-color-subtle);
+  }
+
+  // stylelint-disable-next-line gitlab/no-gl-class
+  .gl-filtered-search-suggestion-list.dropdown-menu {
+    width: $gl-max-dropdown-max-height;
+  }
+}
+
+.commit-list-item {
+  position: relative;
+
+  &::before {
+    // stylelint-disable length-zero-no-unit
+    @include vertical-line(0px, 7px);
+    @apply gl-bg-strong;
+  }
+}

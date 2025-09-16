@@ -1,0 +1,10 @@
+---
+name: duo_workflow_use_handover_summary
+description: Controls whether Duo Workflow agent handovers use conversation summaries or full history for context transfer.
+feature_issue_url: https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/issues/996
+introduced_by_url: https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/2620
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/548135
+milestone: '18.1'
+group: group::duo workflow
+type: gitlab_com_derisk
+default_enabled: false

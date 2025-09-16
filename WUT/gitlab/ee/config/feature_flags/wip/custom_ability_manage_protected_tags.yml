@@ -1,0 +1,9 @@
+---
+name: custom_ability_manage_protected_tags
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/471386
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/178059
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/514379
+milestone: '17.9'
+group: group::authorization
+type: wip
+default_enabled: false

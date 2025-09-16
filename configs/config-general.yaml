@@ -1,0 +1,27 @@
+PROJECT_NAME: "WP_671_office"
+HOMEPAGE_URL: "http://localhost:8088/"
+NONCE_KEYWORD: "nonce"
+COOKIE_KEYWORD: "cookie"
+AVOIDED_REQUEST_POST_DATA: []
+
+UNIQUE_STRING: "zap"
+UNIQUE_NUMBER: 5342
+COV_PATHS: "../shared-tmpfs/coverage-reports/"
+MYSQL_PATHS: "../shared-tmpfs/mysql-error-reports/"
+
+LOGIN_PAGE_PHRASES: ['Username or Email Address','value="Log In"','Login']
+UNAUTHORIZED_PAGE_PHRASES: ["Unauthorized"]
+
+NO_NEW_PATH_MAX: 5
+
+## User role specification must starts from the lowest role (i.e., Anonymous)!
+USER_ROLES: ["Admin", "ShopManager", "Anonymous"]
+#USER_ROLES: ["Admin", "ShopManager", "Editor", "Author", "Contributor", "Subscriber", "Customer", "Vendor", "Anonymous"]
+AVOIDED_LINKS: ["logout","reset","activate","deactivate","upgrade","plugin-install.php","mailto:"]
+##IGNORING_SQL: ["wcfm_updated_end_point_wc","transient_doing_cron","wp_wcfm_detailed_analysis","wp_wcfm_daily_analysis","_wcfm_article_views","_wcfm_product_views"]
+IGNORING_SQL: []
+RUNNING_TIME: { h: 0, m: 0 }
+RESTRICTED_LINKS: [
+  "Admin": ["activate","deactivate","upgrade","plugin-install.php"],
+  "ShopManager": []
+]

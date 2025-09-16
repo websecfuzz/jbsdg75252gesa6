@@ -1,0 +1,9 @@
+---
+name: dora_metrics_dashboard
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/514864
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/178515
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/542910
+milestone: '17.10'
+group: group::optimize
+type: beta
+default_enabled: false

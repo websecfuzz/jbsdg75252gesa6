@@ -1,0 +1,80 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:public",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "namespace_visibility_level": {
+                          "value": 20
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:internal",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "namespace_visibility_level": {
+                          "value": 10
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:private",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "terms": {
+                        "_name": "filters:confidentiality:groups:non_confidential:private:project:membership",
+                        "namespace_id": [__NAMESPACE_ID__, __SHARED_NAMESPACE_ID__]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

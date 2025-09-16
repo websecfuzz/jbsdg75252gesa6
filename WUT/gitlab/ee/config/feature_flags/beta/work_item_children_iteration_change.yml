@@ -1,0 +1,9 @@
+---
+name: work_item_children_iteration_change
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/499539
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/181450
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/530459
+milestone: '17.10'
+group: group::project management
+type: beta
+default_enabled: false

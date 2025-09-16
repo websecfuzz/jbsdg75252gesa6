@@ -1,0 +1,9 @@
+---
+name: security_policies_split_view
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/450705
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/176062
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/450705
+milestone: '17.8'
+group: group::security policies
+type: wip
+default_enabled: false

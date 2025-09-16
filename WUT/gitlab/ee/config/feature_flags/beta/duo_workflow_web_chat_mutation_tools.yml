@@ -1,0 +1,10 @@
+---
+name: duo_workflow_web_chat_mutation_tools
+description: Controls whether Web Agentic Chat uses mutation tools
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/546140
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195228
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550853
+milestone: '18.2'
+group: group::duo workflow
+type: beta
+default_enabled: true

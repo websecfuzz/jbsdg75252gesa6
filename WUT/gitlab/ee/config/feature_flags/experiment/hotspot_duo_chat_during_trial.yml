@@ -1,0 +1,10 @@
+---
+name: hotspot_duo_chat_during_trial
+description: Test adding a hotspot element to GitLab Duo Chat button in the top navigation for net new trial signups
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550757
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196582
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553971
+milestone: '18.2'
+group: group::activation
+type: experiment
+default_enabled: false

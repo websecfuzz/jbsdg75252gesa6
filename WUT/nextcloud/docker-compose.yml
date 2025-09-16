@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=mysql
+    depends_on:
+      - mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  web:
+    image: nextcloud:31.0.8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: dbproxy
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: admin123
+    ports:
+      - "8081:80"
+    volumes:
+      - ./_resources:/res
+    #command: >
+    #  sh -c "/res/wait-for-it.sh mysql:3306 -t 100 -- composer require bagisto/rest-api dev-master && php artisan bagisto-rest-api:install && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+
+  mysql:
+    image: mysql:8.4.0
+    #build:
+    #  context: .
+    #  dockerfile_inline: |
+    #    FROM mysql:8.4.0
+    #    COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5

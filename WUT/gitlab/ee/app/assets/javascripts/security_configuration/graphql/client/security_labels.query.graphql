@@ -1,0 +1,26 @@
+query getSecurityLabels($fullPath: ID!, $categoryId: ID) {
+  group(fullPath: $fullPath) {
+    id
+    securityLabelCategories @client {
+      nodes {
+        id
+        name
+        description
+        multipleSelection
+        canEditCategory
+        canEditLabels
+        labelCount
+      }
+    }
+    securityLabels(categoryId: $categoryId) @client {
+      nodes {
+        id
+        categoryId
+        name
+        description
+        color
+        projectCount
+      }
+    }
+  }
+}

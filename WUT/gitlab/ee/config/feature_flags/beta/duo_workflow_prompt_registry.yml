@@ -1,0 +1,10 @@
+---
+name: duo_workflow_prompt_registry
+description: Use Prompt Registry in Duo Workflow
+feature_issue_url: https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/issues/1072
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196485
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553292
+milestone: '18.2'
+group: group::ai framework
+type: beta
+default_enabled: false

@@ -1,0 +1,10 @@
+---
+name: collect_policy_yaml_invalidated_audit_event
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/550892
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196721
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553626
+milestone: '18.2'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

@@ -1,0 +1,9 @@
+---
+name: workspaces_shallow_clone_project
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/543982
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194906
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550330
+milestone: '18.2'
+group: group::remote development
+type: beta
+default_enabled: false

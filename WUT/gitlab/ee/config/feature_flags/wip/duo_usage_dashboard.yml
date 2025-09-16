@@ -1,0 +1,10 @@
+---
+name: duo_usage_dashboard
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550047
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195976
+rollout_issue_url:
+milestone: '18.2'
+group: group::optimize
+type: wip
+default_enabled: false

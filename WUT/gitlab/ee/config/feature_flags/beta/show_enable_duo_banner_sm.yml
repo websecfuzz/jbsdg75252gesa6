@@ -1,0 +1,9 @@
+---
+name: show_enable_duo_banner_sm
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/536440
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/189055
+rollout_issue_url:
+milestone: '18.0'
+group: group::acquisition
+type: beta
+default_enabled: true

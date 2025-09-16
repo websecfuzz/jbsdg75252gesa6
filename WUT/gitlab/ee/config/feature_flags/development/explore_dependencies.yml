@@ -1,0 +1,9 @@
+---
+name: explore_dependencies
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/438729
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/142066
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/439269
+milestone: '16.9'
+group: group::authorization
+type: development
+default_enabled: false

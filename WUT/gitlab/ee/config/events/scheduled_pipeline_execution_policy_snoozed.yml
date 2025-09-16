@@ -1,0 +1,12 @@
+---
+description: Job execution snoozed by scheduled pipeline execution policy
+internal_events: true
+action: scheduled_pipeline_execution_policy_snoozed
+identifiers:
+- project
+- namespace
+product_group: security_policies
+milestone: '18.1'
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/189776
+tiers:
+- ultimate

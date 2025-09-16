@@ -1,0 +1,14 @@
+Multi-language LOC Report
+Directory scanned: /projects/fuzzing/SQLIFuzz/crawler_WUT/gitlab/
+
+Total number of files: 90363
+
+Total Python LOC (excluding blanks/comments): 202
+Total Ruby LOC (excluding blanks/comments): 3225570
+Total JavaScript LOC (excluding blanks/comments): 1486276
+Total CSS LOC (excluding blanks/comments): 7889
+Total Go LOC (excluding blanks/comments): 28677
+Total PHP LOC (excluding blanks/comments): 18
+Total HTML LOC (excluding blanks/comments): 3217
+
+Grand Total LOC: 4751849

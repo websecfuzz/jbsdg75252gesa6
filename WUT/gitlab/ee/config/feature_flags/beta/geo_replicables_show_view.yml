@@ -1,0 +1,9 @@
+---
+name: geo_replicables_show_view
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/16249
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/178032
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/513782
+milestone: '17.9'
+group: group::geo
+type: beta
+default_enabled: true

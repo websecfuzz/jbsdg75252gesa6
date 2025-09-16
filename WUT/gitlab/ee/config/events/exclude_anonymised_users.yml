@@ -1,0 +1,14 @@
+---
+description: Triggered when a user opts to filter out anonymous users on an analytics dashboard.
+internal_events: true
+action: exclude_anonymised_users
+extra_properties:
+identifiers:
+- project
+- user
+- namespace
+product_group: platform_insights
+milestone: "16.7"
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/138150
+tiers:
+- ultimate

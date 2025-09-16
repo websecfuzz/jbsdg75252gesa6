@@ -1,0 +1,39 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:public",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "namespace_visibility_level": {
+                          "value": 20
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

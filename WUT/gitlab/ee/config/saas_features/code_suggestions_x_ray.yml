@@ -1,0 +1,5 @@
+---
+name: code_suggestions_x_ray
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/146910
+milestone: '16.11'
+group: group::code creation

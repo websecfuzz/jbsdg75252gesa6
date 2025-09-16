@@ -1,0 +1,9 @@
+---
+name: assign_custom_roles_to_group_links_saas
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/443369
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/162039
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/471999
+milestone: '17.4'
+group: group::authorization
+type: beta
+default_enabled: false

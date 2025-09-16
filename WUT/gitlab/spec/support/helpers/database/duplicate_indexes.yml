@@ -1,0 +1,93 @@
+---
+ci_job_artifact_states:
+  index_on_job_artifact_id_partition_id_verification_state:
+  - index_job_artifact_states_on_verification_state
+dast_site_tokens:
+  index_dast_site_token_on_project_id_and_url:
+  - index_dast_site_tokens_on_project_id
+design_management_designs:
+  index_design_management_designs_on_iid_and_project_id:
+  - index_design_management_designs_on_project_id
+design_management_designs_versions:
+  design_management_designs_versions_uniqueness:
+  - index_design_management_designs_versions_on_design_id
+error_tracking_errors:
+  index_et_errors_on_project_id_and_status_and_id:
+  - index_error_tracking_errors_on_project_id
+  index_et_errors_on_project_id_and_status_events_count_id_desc:
+  - index_error_tracking_errors_on_project_id
+  index_et_errors_on_project_id_and_status_first_seen_at_id_desc:
+  - index_error_tracking_errors_on_project_id
+  index_et_errors_on_project_id_and_status_last_seen_at_id_desc:
+  - index_error_tracking_errors_on_project_id
+geo_node_namespace_links:
+  index_geo_node_namespace_links_on_geo_node_id_and_namespace_id:
+  - index_geo_node_namespace_links_on_geo_node_id
+incident_management_oncall_participants:
+  index_inc_mgmnt_oncall_participants_on_user_id_and_rotation_id:
+  - index_inc_mgmnt_oncall_participants_on_oncall_user_id
+incident_management_oncall_schedules:
+  index_im_oncall_schedules_on_project_id_and_iid:
+  - index_incident_management_oncall_schedules_on_project_id
+instance_audit_events_streaming_headers:
+  idx_instance_external_audit_event_destination_id_key_uniq:
+  - idx_headers_instance_external_audit_event_destination_id
+issue_links:
+  index_issue_links_on_source_id_and_target_id:
+  - index_issue_links_on_source_id
+list_user_preferences:
+  index_list_user_preferences_on_user_id_and_list_id:
+  - index_list_user_preferences_on_user_id
+member_tasks:
+  index_member_tasks_on_member_id_and_project_id:
+  - index_member_tasks_on_member_id
+ml_candidate_params:
+  index_ml_candidate_params_on_candidate_id_on_name:
+  - index_ml_candidate_params_on_candidate_id
+ml_candidates:
+  index_ml_candidates_on_project_id_on_internal_id:
+  - index_ml_candidates_on_project_id
+ml_model_versions:
+  index_ml_model_versions_on_project_id_and_model_id_and_version:
+  - index_ml_model_versions_on_project_id
+ml_models:
+  index_ml_models_on_project_id_and_name:
+  - index_ml_models_on_project_id
+pages_domains:
+  index_pages_domains_on_project_id_and_enabled_until:
+  - index_pages_domains_on_project_id
+  index_pages_domains_on_verified_at_and_enabled_until:
+  - index_pages_domains_on_verified_at
+personal_access_tokens:
+  index_pat_on_user_id_and_expires_at:
+  - index_personal_access_tokens_on_user_id
+pm_affected_packages:
+  i_affected_packages_unique_for_upsert:
+  - index_pm_affected_packages_on_pm_advisory_id
+pm_package_version_licenses:
+  i_pm_package_version_licenses_join_ids:
+  - index_pm_package_version_licenses_on_pm_package_version_id
+pm_package_versions:
+  i_pm_package_versions_on_package_id_and_version:
+  - index_pm_package_versions_on_pm_package_id
+project_compliance_standards_adherence:
+  u_project_compliance_standards_adherence_for_reporting:
+  - index_project_compliance_standards_adherence_on_project_id
+related_epic_links:
+  index_related_epic_links_on_source_id_and_target_id:
+  - index_related_epic_links_on_source_id
+requirements_management_test_reports:
+  idx_test_reports_on_issue_id_created_at_and_id:
+  - index_requirements_management_test_reports_on_issue_id
+sprints:
+  sequence_is_unique_per_iterations_cadence_id:
+  - index_sprints_iterations_cadence_id
+taggings:
+  taggings_idx:
+  - index_taggings_on_tag_id
+term_agreements:
+  term_agreements_unique_index:
+  - index_term_agreements_on_user_id
+work_item_hierarchy_restrictions:
+  index_work_item_hierarchy_restrictions_on_parent_and_child:
+  - index_work_item_hierarchy_restrictions_on_parent_type_id

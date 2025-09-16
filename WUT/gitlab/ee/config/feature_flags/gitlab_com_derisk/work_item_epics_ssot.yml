@@ -1,0 +1,9 @@
+---
+name: work_item_epics_ssot
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/13356
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/168174
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/497099
+milestone: '17.5'
+group: group::product planning
+type: gitlab_com_derisk
+default_enabled: false

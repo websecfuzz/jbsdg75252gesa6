@@ -1,0 +1,9 @@
+---
+name: zoekt_cross_namespace_search
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/389748
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/147077
+rollout_issue_url:
+milestone: '16.11'
+group: group::global search
+type: ops
+default_enabled: false

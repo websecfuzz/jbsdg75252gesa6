@@ -1,0 +1,15 @@
+---
+description: Created CI Job Artifacts for Repository X-Ray
+internal_events: true
+action: ci_repository_xray_artifact_created
+identifiers:
+- project
+- user
+product_group: code_creation
+product_categories:
+- code_suggestions
+milestone: '17.11'
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/185189
+tiers:
+- premium
+- ultimate

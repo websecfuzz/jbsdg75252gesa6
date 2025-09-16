@@ -1,0 +1,3 @@
+{"function":"PDO::prepare","params":["delete from caffaine where itemid=:itemid"],"errno":-9999,"errstr":"We detect DDL or DML query"}
+{"function":"PDOStatement::bindParam","params":["5"],"errno":-9999,"errstr":"We detect DDL or DML query"}
+{"function":"PDOStatement::execute","params":["delete from caffaine where itemid=:itemid"],"errno":-9999,"errstr":"We detect DDL or DML query"}

@@ -1,0 +1,9 @@
+---
+name: use_consolidated_audit_event_stream_dest_api
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/442447
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/183848
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/523880
+milestone: '17.10'
+group: group::compliance
+type: beta
+default_enabled: true

@@ -1,0 +1,9 @@
+---
+name: agent_registry_nav
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/441080
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/144902
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/441966
+milestone: '16.10'
+group: group::mlops
+type: development
+default_enabled: false

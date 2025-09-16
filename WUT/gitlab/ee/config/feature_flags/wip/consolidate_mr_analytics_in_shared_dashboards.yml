@@ -1,0 +1,10 @@
+---
+name: consolidate_mr_analytics_in_shared_dashboards
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/523559
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/182502
+rollout_issue_url:
+milestone: '18.1'
+group: group::optimize
+type: wip
+default_enabled: false

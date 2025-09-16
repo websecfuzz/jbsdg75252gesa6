@@ -1,0 +1,10 @@
+---
+name: zoekt_ast_search_payload
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547282
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194968
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547912
+milestone: "18.2"
+group: group::global search
+type: gitlab_com_derisk
+default_enabled: false

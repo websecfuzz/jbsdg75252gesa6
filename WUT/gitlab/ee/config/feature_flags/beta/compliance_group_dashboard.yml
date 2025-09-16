@@ -1,0 +1,10 @@
+---
+name: compliance_group_dashboard
+description: Dashboard tab for group compliance center
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/544654
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195759
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/554886
+milestone: '18.2'
+group: group::compliance
+type: beta
+default_enabled: true

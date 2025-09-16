@@ -1,0 +1,10 @@
+---
+name: use_gemini_2_5_flash_in_code_generation
+description: Use Gemini 2.5 Flash to power GitLab Duo code generations
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/549161
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194860
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550215
+milestone: '18.2'
+group: group::code creation
+type: beta
+default_enabled: false

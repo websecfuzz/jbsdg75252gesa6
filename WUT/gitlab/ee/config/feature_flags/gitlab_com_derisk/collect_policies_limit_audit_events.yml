@@ -1,0 +1,10 @@
+---
+name: collect_policies_limit_audit_events
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/550891
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196005
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553047
+milestone: '18.2'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

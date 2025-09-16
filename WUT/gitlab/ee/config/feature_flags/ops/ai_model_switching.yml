@@ -1,0 +1,9 @@
+---
+name: ai_model_switching
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/17181
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/190194
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/526307
+milestone: '18.1'
+group: group::custom models
+type: ops
+default_enabled: false

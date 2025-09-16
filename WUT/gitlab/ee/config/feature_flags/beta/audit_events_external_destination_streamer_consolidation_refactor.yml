@@ -1,0 +1,9 @@
+---
+name: audit_events_external_destination_streamer_consolidation_refactor
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/436616
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/171431
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/501068
+milestone: '17.7'
+group: group::compliance
+type: beta
+default_enabled: true

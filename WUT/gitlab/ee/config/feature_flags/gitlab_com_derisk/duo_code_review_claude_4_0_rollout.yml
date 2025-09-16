@@ -1,0 +1,10 @@
+---
+name: duo_code_review_claude_4_0_rollout
+description: enable
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/545502
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/192920
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/546438
+milestone: '18.1'
+group: group::code review
+type: gitlab_com_derisk
+default_enabled: false

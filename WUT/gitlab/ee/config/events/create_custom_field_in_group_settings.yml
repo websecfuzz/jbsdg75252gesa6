@@ -1,0 +1,18 @@
+---
+description: Custom field created for a namespace
+internal_events: true
+action: create_custom_field_in_group_settings
+identifiers:
+- namespace
+- user
+additional_properties:
+  label:
+    description: Custom field type
+product_group: project_management
+product_categories:
+- team_planning
+milestone: '17.11'
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/184587
+tiers:
+- premium
+- ultimate

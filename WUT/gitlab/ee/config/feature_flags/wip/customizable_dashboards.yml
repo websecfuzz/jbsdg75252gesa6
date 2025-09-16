@@ -1,0 +1,9 @@
+---
+name: customizable_dashboards
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/525203
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/185377
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/526236
+milestone: '17.11'
+group: group::platform insights
+type: wip
+default_enabled: false

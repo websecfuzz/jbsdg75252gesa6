@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dependency Project Count component renders toggle text 1`] = `
+<gl-button-stub
+  buttontextclasses=""
+  category="tertiary"
+  data-testid="toggle-text"
+  icon="project"
+  size="medium"
+  tag="button"
+  type="button"
+  variant="link"
+>
+  <span
+    class="md:gl-hidden"
+  >
+    1
+  </span>
+  <span
+    class="gl-hidden md:gl-inline-flex"
+  >
+    1 project
+  </span>
+</gl-button-stub>
+`;

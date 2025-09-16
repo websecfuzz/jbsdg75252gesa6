@@ -1,0 +1,134 @@
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/pg_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=postgres
+    depends_on:
+      - postgres
+        
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+        
+  postgres:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM postgres:16
+        # COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    container_name: gitlab-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      # You can tune Postgres a bit for medium installs; uncomment as you grow.
+      # POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+#    volumes:
+#      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: gitlab-redis
+    restart: unless-stopped
+    command: >
+      sh -c "
+        echo 'requirepass ${REDIS_PASSWORD}' > /usr/local/etc/redis.conf &&
+        echo 'appendonly yes' >> /usr/local/etc/redis.conf &&
+        redis-server /usr/local/etc/redis.conf
+      "
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "PING"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - redis_data:/data
+
+  gitlab:
+    image: gitlab/gitlab-ce:${GITLAB_IMAGE_TAG}
+    container_name: gitlab
+    restart: unless-stopped
+    hostname: ${GITLAB_HOSTNAME}
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      # If you already have a reverse proxy doing TLS, you can drop 443 here.
+      - "${HTTP_PORT}:80"     # HTTP UI
+      - "${HTTPS_PORT}:443"   # HTTPS (GitLab handles TLS if you configure certs)
+      - "${SSH_PORT}:22"      # SSH for Git operations
+    environment:
+      GITLAB_ROOT_PASSWORD: 5sfxNaONnFRXvJnnzB5WtA64kgg2bjMvR0ojlppXqK8=
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '${GITLAB_EXTERNAL_URL}'
+
+        # --- PostgreSQL (external) ---
+        gitlab_rails['db_adapter'] = 'postgresql'
+        gitlab_rails['db_encoding'] = 'utf8'
+        gitlab_rails['db_host'] = 'dbproxy'
+        gitlab_rails['db_port'] = 5432
+        gitlab_rails['db_database'] = '${POSTGRES_DB}'
+        gitlab_rails['db_username'] = '${POSTGRES_USER}'
+        gitlab_rails['db_password'] = '${POSTGRES_PASSWORD}'
+
+        # --- Redis (external) ---
+        gitlab_rails['redis_host'] = 'redis'
+        gitlab_rails['redis_port'] = 6379
+        gitlab_rails['redis_password'] = '${REDIS_PASSWORD}'
+
+        # --- SSH ---
+        # Expose the external SSH port so clone URLs are correct in the UI
+        gitlab_rails['gitlab_shell_ssh_port'] = ${SSH_PORT}
+
+        # --- Backups ---
+        gitlab_rails['manage_backup_path'] = true
+        gitlab_rails['backup_path'] = '/var/opt/gitlab/backups'
+        gitlab_rails['backup_keep_time'] = ${BACKUP_KEEP_SECONDS}
+
+        # You can enable the Container Registry later; example:
+        # registry_external_url '${REGISTRY_EXTERNAL_URL}'
+        # gitlab_rails['registry_enabled'] = true
+
+        # --- SMTP (optional; uncomment & fill to enable email) ---
+        # gitlab_rails['smtp_enable'] = true
+        # gitlab_rails['smtp_address'] = '${SMTP_ADDRESS}'
+        # gitlab_rails['smtp_port'] = ${SMTP_PORT}
+        # gitlab_rails['smtp_user_name'] = '${SMTP_USER}'
+        # gitlab_rails['smtp_password'] = '${SMTP_PASSWORD}'
+        # gitlab_rails['smtp_domain'] = '${SMTP_DOMAIN}'
+        # gitlab_rails['smtp_authentication'] = 'login'
+        # gitlab_rails['smtp_enable_starttls_auto'] = true
+        # gitlab_rails['gitlab_email_from'] = '${SMTP_FROM}'
+
+        # --- Prometheus (optional) ---
+        # prometheus['enable'] = true
+
+    shm_size: "1g"   # GitLab’s embedded services benefit from some shm
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+      # Optional: mount custom TLS certs (if you terminate TLS inside GitLab)
+      # - ./certs:/etc/gitlab/ssl:ro
+
+volumes:
+  pg_data:
+  redis_data:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:

@@ -1,0 +1,10 @@
+---
+name: collect_security_policy_manage_audit_events
+description: Enables the collection of security policy management(create/update/delete) related audit events in the security policy project
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/539230
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/192797
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/538934
+milestone: '18.1'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

@@ -1,0 +1,9 @@
+---
+name: duo_include_context_user_rule
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550743
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195829
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/551804
+milestone: '18.2'
+group: group::editor extensions
+type: beta
+default_enabled: true

@@ -1,0 +1,489 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`License Compliance extension expanded data with new licenses displays allowed licenses 1`] = `
+<div
+  class="gl-border-t gl-border-t-section gl-flex gl-items-baseline gl-pl-7 gl-py-3"
+  data-testid="extension-list-item"
+>
+  <div
+    class="gl-min-w-0 gl-w-full"
+  >
+    <div
+      class="gl-flex"
+    >
+      <div
+        class="gl-mb-2"
+      >
+        <strong
+          class="gl-block"
+        >
+          Allowed
+        </strong>
+      </div>
+    </div>
+    <div
+      class="gl-flex gl-items-baseline"
+    >
+      <div
+        class="gl-flex gl-flex-col gl-w-full"
+      >
+        <div
+          class="gl-flex gl-grow"
+        >
+          <div
+            class="gl-flex gl-grow gl-items-baseline"
+          >
+            <div>
+              <p
+                class="gl-mb-0 gl-mr-1"
+              >
+                Acceptable for use in this project
+              </p>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="gl-list-none gl-m-0 gl-p-0"
+        >
+          <li>
+            <div
+              class="gl-flex gl-items-baseline"
+            >
+              <div
+                class="gl-mr-3 gl-relative gl-rounded-full"
+              >
+                <svg
+                  aria-label="Success WidgetLicenseCompliance"
+                  class="gl-fill-current gl-fill-status-success gl-icon gl-relative gl-z-1 s12"
+                  data-testid="status-success-icon"
+                  role="img"
+                >
+                  <use
+                    href="file-mock#status-success"
+                  />
+                </svg>
+              </div>
+              <div
+                class="gl-min-w-0 gl-w-full"
+              >
+                <div
+                  class="gl-flex gl-items-baseline"
+                >
+                  <div
+                    class="gl-flex gl-flex-col gl-w-full"
+                  >
+                    <div
+                      class="gl-flex gl-grow"
+                    >
+                      <div
+                        class="gl-flex gl-grow gl-items-baseline"
+                      >
+                        <div>
+                          <p
+                            class="gl-mb-0 gl-mr-1"
+                          />
+                          <a
+                            class="gl-link"
+                            href="https://opensource.org/licenses/ISC"
+                          >
+                            ISC License
+                          </a>
+                        </div>
+                      </div>
+                      <div
+                        class="gl-flex gl-items-start gl-ml-auto gl-pl-3"
+                      >
+                        <div
+                          class="gl-block gl-disclosure-dropdown gl-new-dropdown md:!gl-hidden"
+                        >
+                          <button
+                            aria-controls="reference-1"
+                            aria-expanded="false"
+                            class="!gl-p-2 btn btn-default btn-default-tertiary btn-icon btn-sm gl-button gl-new-dropdown-icon-only gl-new-dropdown-toggle gl-new-dropdown-toggle-no-caret"
+                            data-testid="base-dropdown-toggle"
+                            id="reference-0"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="gl-button-icon gl-fill-current gl-icon s16"
+                              data-testid="ellipsis_v-icon"
+                              role="img"
+                            >
+                              <use
+                                href="file-mock#ellipsis_v"
+                              />
+                            </svg>
+                            <span
+                              class="gl-button-text"
+                            >
+                              <span
+                                class="gl-new-dropdown-button-text gl-sr-only"
+                              />
+                            </span>
+                          </button>
+                          <div
+                            class="!gl-w-31 gl-new-dropdown-panel"
+                            data-testid="base-dropdown-menu"
+                            id="reference-1"
+                          >
+                            <div
+                              class="gl-new-dropdown-arrow"
+                            />
+                            <div
+                              class="gl-new-dropdown-inner"
+                            >
+                              <ul
+                                aria-labelledby="reference-0"
+                                class="gl-new-dropdown-contents"
+                                data-testid="disclosure-content"
+                                id="reference-2"
+                                tabindex="-1"
+                              >
+                                <li
+                                  class="gl-new-dropdown-item"
+                                  data-testid="disclosure-dropdown-item"
+                                  tabindex="0"
+                                >
+                                  <a
+                                    class="gl-new-dropdown-item-content"
+                                    href="/group-name/project-name/-/merge_requests/78/full_report"
+                                    tabindex="-1"
+                                  >
+                                    <span
+                                      class="gl-new-dropdown-item-text-wrapper"
+                                    >
+                                      <span
+                                        class="gl-flex gl-items-center gl-justify-between"
+                                      >
+                                        Used by 2 packages
+                                      </span>
+                                    </span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <a
+                          class="btn btn-confirm btn-confirm-tertiary btn-sm gl-button gl-float-left gl-hidden md:gl-inline-flex"
+                          data-testid="extension-actions-button"
+                          href="/group-name/project-name/-/merge_requests/78/full_report"
+                        >
+                          <span
+                            class="gl-button-text"
+                          >
+                            Used by 2 packages
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`License Compliance extension expanded data with new licenses displays denied licenses 1`] = `
+<div
+  class="gl-border-t gl-border-t-0 gl-border-t-section gl-flex gl-items-baseline gl-pl-7 gl-py-3"
+  data-testid="extension-list-item"
+>
+  <div
+    class="gl-min-w-0 gl-w-full"
+  >
+    <div
+      class="gl-flex"
+    >
+      <div
+        class="gl-mb-2"
+      >
+        <strong
+          class="gl-block"
+        >
+          Denied
+        </strong>
+      </div>
+    </div>
+    <div
+      class="gl-flex gl-items-baseline"
+    >
+      <div
+        class="gl-flex gl-flex-col gl-w-full"
+      >
+        <div
+          class="gl-flex gl-grow"
+        >
+          <div
+            class="gl-flex gl-grow gl-items-baseline"
+          >
+            <div>
+              <p
+                class="gl-mb-0 gl-mr-1"
+              >
+                Out-of-compliance with the project's policies and should be removed
+              </p>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="gl-list-none gl-m-0 gl-p-0"
+        >
+          <li>
+            <div
+              class="gl-flex gl-items-start"
+            >
+              <div
+                class="gl-mr-3 gl-relative gl-rounded-full"
+              >
+                <svg
+                  aria-label="Failed WidgetLicenseCompliance"
+                  class="gl-fill-current gl-fill-status-danger gl-icon gl-relative gl-z-1 s12"
+                  data-testid="status-failed-icon"
+                  role="img"
+                >
+                  <use
+                    href="file-mock#status-failed"
+                  />
+                </svg>
+              </div>
+              <div
+                class="gl-min-w-0 gl-w-full"
+              >
+                <div
+                  class="gl-flex gl-items-baseline"
+                >
+                  <div
+                    class="gl-flex gl-flex-col gl-w-full"
+                  >
+                    <div
+                      class="gl-flex gl-grow"
+                    >
+                      <div
+                        class="gl-flex gl-grow gl-items-baseline"
+                      >
+                        <div>
+                          <p
+                            class="gl-mb-0 gl-mr-1"
+                          />
+                          <a
+                            class="gl-link"
+                            href="https://opensource.org/licenses/Apache-2.0"
+                          >
+                            Apache License 2.0
+                          </a>
+                          <p
+                            class="gl-mb-0"
+                          >
+                            Used by websocket-driver, websocket-extensions, xml-name-validator
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`License Compliance extension expanded data with new licenses displays uncategorized licenses 1`] = `
+<div
+  class="gl-border-t gl-border-t-section gl-flex gl-items-baseline gl-pl-7 gl-py-3"
+  data-testid="extension-list-item"
+>
+  <div
+    class="gl-min-w-0 gl-w-full"
+  >
+    <div
+      class="gl-flex"
+    >
+      <div
+        class="gl-mb-2"
+      >
+        <strong
+          class="gl-block"
+        >
+          Uncategorized
+        </strong>
+      </div>
+    </div>
+    <div
+      class="gl-flex gl-items-baseline"
+    >
+      <div
+        class="gl-flex gl-flex-col gl-w-full"
+      >
+        <div
+          class="gl-flex gl-grow"
+        >
+          <div
+            class="gl-flex gl-grow gl-items-baseline"
+          >
+            <div>
+              <p
+                class="gl-mb-0 gl-mr-1"
+              >
+                No policy matches this license
+              </p>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="gl-list-none gl-m-0 gl-p-0"
+        >
+          <li>
+            <div
+              class="gl-flex gl-items-baseline"
+            >
+              <div
+                class="gl-mr-3 gl-relative gl-rounded-full"
+              >
+                <svg
+                  aria-label="Notice WidgetLicenseCompliance"
+                  class="gl-fill-current gl-fill-status-neutral gl-icon gl-relative gl-z-1 s12"
+                  data-testid="status-notice-icon"
+                  role="img"
+                >
+                  <use
+                    href="file-mock#status-alert"
+                  />
+                </svg>
+              </div>
+              <div
+                class="gl-min-w-0 gl-w-full"
+              >
+                <div
+                  class="gl-flex gl-items-baseline"
+                >
+                  <div
+                    class="gl-flex gl-flex-col gl-w-full"
+                  >
+                    <div
+                      class="gl-flex gl-grow"
+                    >
+                      <div
+                        class="gl-flex gl-grow gl-items-baseline"
+                      >
+                        <div>
+                          <p
+                            class="gl-mb-0 gl-mr-1"
+                          />
+                          <a
+                            class="gl-link"
+                            href="http://opensource.linux-mirror.org/licenses/afl-2.1.txt"
+                          >
+                            Academic Free License v2.1
+                          </a>
+                        </div>
+                      </div>
+                      <div
+                        class="gl-flex gl-items-start gl-ml-auto gl-pl-3"
+                      >
+                        <div
+                          class="gl-block gl-disclosure-dropdown gl-new-dropdown md:!gl-hidden"
+                        >
+                          <button
+                            aria-controls="reference-1"
+                            aria-expanded="false"
+                            class="!gl-p-2 btn btn-default btn-default-tertiary btn-icon btn-sm gl-button gl-new-dropdown-icon-only gl-new-dropdown-toggle gl-new-dropdown-toggle-no-caret"
+                            data-testid="base-dropdown-toggle"
+                            id="reference-0"
+                            type="button"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="gl-button-icon gl-fill-current gl-icon s16"
+                              data-testid="ellipsis_v-icon"
+                              role="img"
+                            >
+                              <use
+                                href="file-mock#ellipsis_v"
+                              />
+                            </svg>
+                            <span
+                              class="gl-button-text"
+                            >
+                              <span
+                                class="gl-new-dropdown-button-text gl-sr-only"
+                              />
+                            </span>
+                          </button>
+                          <div
+                            class="!gl-w-31 gl-new-dropdown-panel"
+                            data-testid="base-dropdown-menu"
+                            id="reference-1"
+                          >
+                            <div
+                              class="gl-new-dropdown-arrow"
+                            />
+                            <div
+                              class="gl-new-dropdown-inner"
+                            >
+                              <ul
+                                aria-labelledby="reference-0"
+                                class="gl-new-dropdown-contents"
+                                data-testid="disclosure-content"
+                                id="reference-2"
+                                tabindex="-1"
+                              >
+                                <li
+                                  class="gl-new-dropdown-item"
+                                  data-testid="disclosure-dropdown-item"
+                                  tabindex="0"
+                                >
+                                  <a
+                                    class="gl-new-dropdown-item-content"
+                                    href="/group-name/project-name/-/merge_requests/78/full_report"
+                                    tabindex="-1"
+                                  >
+                                    <span
+                                      class="gl-new-dropdown-item-text-wrapper"
+                                    >
+                                      <span
+                                        class="gl-flex gl-items-center gl-justify-between"
+                                      >
+                                        Used by 1 package
+                                      </span>
+                                    </span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <a
+                          class="btn btn-confirm btn-confirm-tertiary btn-sm gl-button gl-float-left gl-hidden md:gl-inline-flex"
+                          data-testid="extension-actions-button"
+                          href="/group-name/project-name/-/merge_requests/78/full_report"
+                        >
+                          <span
+                            class="gl-button-text"
+                          >
+                            Used by 1 package
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,10 @@
+---
+name: group_settings_based_update_worker
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/548281
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/196691
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553607
+milestone: '18.2'
+group: group::security platform management
+type: beta
+default_enabled: true

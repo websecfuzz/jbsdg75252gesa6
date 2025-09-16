@@ -1,0 +1,10 @@
+---
+name: saml_timeout_supplied_by_idp_override
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/262074
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194914
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553931
+milestone: '18.2'
+group: group::authentication
+type: gitlab_com_derisk
+default_enabled: false

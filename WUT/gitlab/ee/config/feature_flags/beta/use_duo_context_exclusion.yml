@@ -1,0 +1,10 @@
+---
+name: use_duo_context_exclusion
+description:
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/17124
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194648
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/548612
+milestone: '18.2'
+group: group::code creation
+type: beta
+default_enabled: false

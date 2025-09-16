@@ -1,0 +1,10 @@
+---
+name: collect_security_policy_skipped_pipelines_audit_events
+description: Collects audit events for skipped pipelines with security policy jobs in merge requests.
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/539232
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195325
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550772
+milestone: '18.2'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

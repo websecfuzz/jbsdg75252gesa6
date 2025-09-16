@@ -1,0 +1,11 @@
+---
+title: Edit security labels
+name: admin_security_labels
+description: Edit the security labels belonging to a top-level group.
+introduced_by_issue: https://gitlab.com/groups/gitlab-org/-/epics/18010
+introduced_by_mr: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195554
+feature_category: security_asset_inventories
+milestone: '18.2'
+group_ability: true
+enabled_for_group_access_levels: [40, 50]
+project_ability: false

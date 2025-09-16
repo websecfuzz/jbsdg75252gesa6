@@ -1,0 +1,9 @@
+---
+name: scheduled_pipeline_execution_policies
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/504092
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/175246
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/513337
+milestone: '17.9'
+group: group::security policies
+type: beta
+default_enabled: true

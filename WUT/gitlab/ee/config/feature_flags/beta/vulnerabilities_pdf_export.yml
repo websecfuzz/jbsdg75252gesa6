@@ -1,0 +1,10 @@
+---
+name: vulnerabilities_pdf_export
+description: Gates the usage of an in-development vulnerability report pdf export.
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/185058
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/185058
+rollout_issue_url:
+milestone: '18.0'
+group: group::security insights
+type: beta
+default_enabled: true

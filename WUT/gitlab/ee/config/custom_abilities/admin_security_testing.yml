@@ -1,0 +1,13 @@
+---
+title: Manage security testing
+name: admin_security_testing
+description: Edit and manage security testing configurations and settings.
+introduced_by_issue: https://gitlab.com/gitlab-org/gitlab/-/issues/508649
+introduced_by_mr: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/176628
+feature_category: security_policy_management
+milestone: "17.9"
+group_ability: true
+project_ability: true
+requirements: []
+enabled_for_group_access_levels: [40, 50]
+enabled_for_project_access_levels: [40, 50]

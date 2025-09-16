@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=mysql
+    depends_on:
+      - mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  web:
+    image: redmine:6.0.6
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      REDMINE_DB_DATABASE: db
+      REDMINE_DB_USERNAME: user
+      REDMINE_DB_PASSWORD: password
+      REDMINE_DB_MYSQL: dbproxy
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+      REDMINE_PLUGINS_MIGRATE: 1
+      REDMINE_NO_DB_MIGRATE: 1
+    ports:
+      - "8081:3000"
+    volumes:
+      - ./_resources:/res
+    #command: >
+    #  /res/wait-for-it.sh mysql:3306 -t 100 -- rails server -b 0.0.0.0
+
+
+  mysql:
+    #image: mysql:8.4.0
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mysql:8.4.0
+        COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5

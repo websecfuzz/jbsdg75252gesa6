@@ -1,0 +1,10 @@
+---
+name: restrict_sso_login_for_pipl_compliance
+description: If enabled users from PIPL compliant coutries will be restricted signing up to Gitlab.com via SSO
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547893
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195952
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553155
+milestone: '18.2'
+group: group::authentication
+type: gitlab_com_derisk
+default_enabled: false

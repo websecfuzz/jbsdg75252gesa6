@@ -1,0 +1,16 @@
+---
+description: This event represents a click of the AI View Summary button by the user.
+action: click_ai_summarize_notes_button
+internal_events: true
+identifiers:
+- project
+- user
+- namespace
+product_group: activation
+milestone: "17.11"
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/183875
+tiers:
+- ultimate
+additional_properties:
+  label:
+    description: the place when the button is clicked

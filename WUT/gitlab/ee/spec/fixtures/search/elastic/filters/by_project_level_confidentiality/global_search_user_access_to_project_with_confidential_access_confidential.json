@@ -1,0 +1,74 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "confidential": true
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "confidential": {
+                    "_name": "filters:non_confidential",
+                    "value": false
+                  }
+                }
+              },
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "_name": "filters:confidential",
+                          "value": true
+                        }
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "term": {
+                              "author_id": {
+                                "_name": "filters:confidential:as_author",
+                                "value": __USER_ID__
+                              }
+                            }
+                          },
+                          {
+                            "term": {
+                              "assignee_id": {
+                                "_name": "filters:confidential:as_assignee",
+                                "value": __USER_ID__
+                              }
+                            }
+                          },
+                          {
+                            "terms": {
+                              "_name": "filters:confidential:project:membership:id",
+                              "project_id": [
+                                __PROJECT_ID__
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

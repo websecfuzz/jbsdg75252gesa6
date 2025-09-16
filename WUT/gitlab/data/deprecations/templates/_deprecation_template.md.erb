@@ -1,0 +1,130 @@
+---
+stage: none
+group: none
+info: "See the Technical Writers assigned to Development Guidelines: https://handbook.gitlab.com/handbook/product/ux/technical-writing/#assignments-to-development-guidelines"
+toc: false
+title: Deprecations and removals by version
+---
+
+The following GitLab features are deprecated and no longer recommended for use.
+
+- Each deprecated feature will be removed in a future release.
+- Some features cause breaking changes when they are removed.
+- On GitLab.com, deprecated features can be removed at any time during the month leading up to the release.
+- To view documentation for a removed feature, see the [GitLab Docs archive](https://docs.gitlab.com/archives/).
+- For GraphQL API deprecations, you should [verify your API calls work without the deprecated items](https://docs.gitlab.com/api/graphql/#verify-against-the-future-breaking-change-schema).
+
+For advanced searching and filtering of this deprecation information, try
+[a tool built by our Customer Success team](https://gitlab-com.gitlab.io/cs-tools/gitlab-cs-tools/what-is-new-since/?tab=deprecations).
+
+[REST API deprecations](https://docs.gitlab.com/api/rest/deprecations/) are documented separately.
+
+{{< icon name="rss" >}} **To be notified of upcoming breaking changes**,
+add this URL to your RSS feed reader: `https://about.gitlab.com/breaking-changes.xml`
+
+<!-- vale off -->
+
+<!--
+DO NOT EDIT THIS PAGE DIRECTLY
+
+This page is automatically generated from the template located at
+`data/deprecations/templates/_deprecation_template.md.erb`, using
+the YAML files in `/data/deprecations` by the rake task
+located at `lib/tasks/gitlab/docs/compile_deprecations.rake`,
+
+For deprecation authors (usually Product Managers and Engineering Managers):
+
+- To add a deprecation, use the example.yml file in `/data/deprecations/templates` as a template.
+- For more information about authoring deprecations, check the the deprecation item guidance:
+  https://handbook.gitlab.com/handbook/marketing/blog/release-posts/#update-the-deprecations-doc
+
+For deprecation reviewers (Technical Writers only):
+
+- To update the deprecation doc, run: `bin/rake gitlab:docs:compile_deprecations`
+- To verify the deprecations doc is up to date, run: `bin/rake gitlab:docs:check_deprecations`
+- For more information about updating the deprecation doc, see the deprecation doc update guidance:
+  https://handbook.gitlab.com/handbook/marketing/blog/release-posts/#update-the-deprecations-doc
+-->
+
+<%-
+  CANCELLED_STATUSES = ["Cancelled", "Canceled"]
+  PENDING_STATUSES = ["Pending"]
+  SPECIAL_STATUSES = CANCELLED_STATUSES + PENDING_STATUSES
+  # Regex for identifying semantic version numbers (like "16.0" or "15.3")
+  # This distinguishes actual version releases from special statuses.
+  VERSION_NUMBER_PATTERN = /^\d+(\.\d+)*$/
+-%>
+<% if milestones.any? -%><div class="js-deprecation-filters"></div><%- end -%>
+<%- milestones.each do |milestone| %>
+<%-
+  # Process milestone to determine its type and set appropriate attributes
+
+  # Check if this is a special status milestone (like "Pending" or "Cancelled")
+  is_cancelled = CANCELLED_STATUSES.any? { |status| milestone.downcase == status.downcase }
+  is_pending = PENDING_STATUSES.any? { |status| milestone.downcase == status.downcase }
+  is_special_status = is_cancelled || is_pending
+
+  # Special status milestones get a data attribute that allows them to be
+  # treated differently by the filtering JavaScript on the website.
+  special_attr = is_special_status ? " data-special-status=\"true\"" : ""
+
+  # Only add the data-milestone attribute to numeric version milestones
+  # This ensures filtering works correctly by excluding special statuses
+  # from being treated as filterable versions
+  is_version_number = milestone =~ VERSION_NUMBER_PATTERN
+  data_milestone_attr = is_version_number ? " data-milestone=\"#{milestone}\"" : ""
+-%>
+<div class="milestone-wrapper"<%= special_attr %><%= data_milestone_attr %>>
+
+<% if is_cancelled -%>
+## Cancelled changes
+
+The following changes have been cancelled.
+<%- elsif is_pending -%>
+## Pending changes
+
+The following changes have been removed from their original milestone and are being reassessed.
+<%- else -%>
+## GitLab <%= milestone %>
+<%- end -%>
+  <%- entries.select{|d| d["removal_milestone"] == milestone}.each do |deprecation| %>
+<div class="deprecation <% if deprecation["breaking_change"] -%>breaking-change<% end %>"<%= data_milestone_attr %>>
+
+### <%= deprecation["title"] %>
+
+<div class="deprecation-notes">
+
+- Announced in GitLab <span class="milestone"><%= deprecation["announcement_milestone"]%></span>
+<% if deprecation["end_of_support_milestone"] && !is_special_status -%>
+- End of Support in GitLab <span class="milestone"><%= deprecation["end_of_support_milestone"]%></span>
+<% end -%>
+<% if deprecation["removal_milestone"] && !is_special_status -%>
+- Removal in GitLab <span class="milestone"><%= deprecation["removal_milestone"]%></span><% if deprecation["breaking_change"] -%> ([breaking change](https://docs.gitlab.com/update/terminology/#breaking-change))<% end %>
+<% end -%>
+<% if deprecation["issue_url"] -%>
+- To discuss this change or learn more, see the [deprecation issue](<%= deprecation["issue_url"]%>).
+<%- end -%>
+
+</div>
+<% if is_cancelled -%>
+{{< alert type="note" >}}
+
+This change has been cancelled.
+
+{{< /alert >}}
+<%- elsif is_pending -%>
+{{< alert type="note" >}}
+
+This change has been removed from its original milestone and is being reassessed.
+
+{{< /alert >}}
+<%- end -%>
+
+<%= deprecation["body"] -%>
+
+</div>
+  <%- end -%>
+</div>
+<%- end -%>
+
+{{< alert type="disclaimer" />}}

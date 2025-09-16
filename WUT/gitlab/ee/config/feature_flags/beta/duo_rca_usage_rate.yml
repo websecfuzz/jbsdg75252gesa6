@@ -1,0 +1,10 @@
+---
+name: duo_rca_usage_rate
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/513252
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/191865
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/543987
+milestone: '18.1'
+group: group::optimize
+type: beta
+default_enabled: false

@@ -1,0 +1,9 @@
+---
+name: evaluate_compliance_controls
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/482499
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/182419
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/525498
+milestone: '17.11'
+group: group::compliance
+type: beta
+default_enabled: true

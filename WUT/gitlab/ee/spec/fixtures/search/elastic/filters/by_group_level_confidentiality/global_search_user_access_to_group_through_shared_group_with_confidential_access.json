@@ -1,0 +1,126 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:public",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "namespace_visibility_level": {
+                          "value": 20
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:internal",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "namespace_visibility_level": {
+                          "value": 10
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:non_confidential:private",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": false
+                        }
+                      }
+                    }
+                  ],
+                  "should": [
+                    {
+                      "prefix": {
+                        "traversal_ids": {
+                          "_name": "filters:confidentiality:groups:non_confidential:private:ancestry_filter:descendants",
+                          "value": "__SHARED_NAMESPACE_ANCESTRY__"
+                        }
+                      }
+                    },
+                    {
+                      "prefix": {
+                        "traversal_ids": {
+                          "_name": "filters:confidentiality:groups:non_confidential:private:ancestry_filter:descendants",
+                          "value": "__NAMESPACE_ANCESTRY__"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "_name": "filters:confidentiality:groups:confidential:private",
+                  "must": [
+                    {
+                      "term": {
+                        "confidential": {
+                          "value": true
+                        }
+                      }
+                    }
+                  ],
+                  "should": [
+                    {
+                      "prefix": {
+                        "traversal_ids": {
+                          "_name": "filters:confidentiality:groups:confidential:private:ancestry_filter:descendants",
+                          "value": "__SHARED_NAMESPACE_ANCESTRY__"
+                        }
+                      }
+                    },
+                    {
+                      "prefix": {
+                        "traversal_ids": {
+                          "_name": "filters:confidentiality:groups:confidential:private:ancestry_filter:descendants",
+                          "value": "__NAMESPACE_ANCESTRY__"
+                        }
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

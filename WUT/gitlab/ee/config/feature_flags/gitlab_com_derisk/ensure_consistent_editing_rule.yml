@@ -1,0 +1,10 @@
+---
+name: ensure_consistent_editing_rule
+description: Ensure consistent editing rules for approval rules
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/537637
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/189771
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/545796
+milestone: '18.1'
+group: group::code review
+type: gitlab_com_derisk
+default_enabled: false

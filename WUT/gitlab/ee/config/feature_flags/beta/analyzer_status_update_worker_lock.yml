@@ -1,0 +1,10 @@
+---
+name: analyzer_status_update_worker_lock
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/554543
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/197163
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/555173
+milestone: '18.2'
+group: group::security platform management
+type: beta
+default_enabled: false

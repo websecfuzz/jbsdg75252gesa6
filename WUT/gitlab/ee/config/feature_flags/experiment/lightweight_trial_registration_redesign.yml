@@ -1,0 +1,8 @@
+---
+name: lightweight_trial_registration_redesign
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/193204
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/543761
+milestone: '18.1'
+type: experiment
+group: group::acquisition
+default_enabled: false

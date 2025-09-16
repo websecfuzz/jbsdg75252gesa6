@@ -1,0 +1,10 @@
+---
+name: duo_core_saas
+description: This feature flag will be used to control the rollout timing of Duo Core features specifically on GitLab.com
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/536892
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/188735
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/537018
+milestone: '18.0'
+group: group::ai framework
+type: gitlab_com_derisk
+default_enabled: false

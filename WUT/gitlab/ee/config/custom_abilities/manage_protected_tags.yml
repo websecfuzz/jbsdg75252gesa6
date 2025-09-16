@@ -1,0 +1,12 @@
+---
+title: Manage Protected Tags
+name: manage_protected_tags
+description: Create, read, update, and delete protected tags.
+introduced_by_issue: https://gitlab.com/gitlab-org/gitlab/-/issues/471386
+introduced_by_mr: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/178059
+feature_category: source_code_management
+milestone: '17.9'
+group_ability: false
+project_ability: true
+requirements: []
+enabled_for_project_access_levels: [40, 50]

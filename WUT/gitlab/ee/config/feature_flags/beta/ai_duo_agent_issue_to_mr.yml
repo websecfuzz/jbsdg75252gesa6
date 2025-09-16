@@ -1,0 +1,10 @@
+---
+name: ai_duo_agent_issue_to_mr
+description: "Feature flag to allow users to generate merge requests from issues in a project using Agent platform."
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/548238
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/197601
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/555370
+milestone: '18.3'
+group: group::duo workflow
+type: beta
+default_enabled: false

@@ -1,0 +1,9 @@
+---
+name: mr_description_composer
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/513132
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/183512
+rollout_issue_url:
+milestone: '17.10'
+group: group::code review
+type: wip
+default_enabled: false

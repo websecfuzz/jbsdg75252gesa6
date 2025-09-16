@@ -1,0 +1,40 @@
+= render layout: 'shared/billings/billing_plans_layout', locals: { namespace: namespace, current_plan: current_plan } do
+
+  - if namespace.trial_active?
+    = render 'shared/billings/trial_status', namespace: namespace
+  - else
+    - all_groups_link = link_to s_("BillingPlans|Switch to a different group."),
+                        dashboard_groups_path,
+                        data: { track_action: 'click_button', track_label: 'view_all_groups' },
+                        class: 'gl-underline'
+
+
+    = html_escape(s_("BillingPlans|Not the group you're looking for? %{all_groups_link}")) % { all_groups_link: all_groups_link.html_safe }
+
+    - if @targeted_message_id.present?
+      = render Pajamas::BannerComponent.new(banner_options: { class: 'gl-mt-6 js-targeted-message', data: { namespace_id: @group.id, targeted_message_id: @targeted_message_id, dismiss_endpoint: targeted_message_dismissals_path } }, close_options: { class: 'js-close' },
+        button_text: s_('TargettedMessages|Get in Touch'),
+        button_link: "#{ApplicationHelper.promo_url}/pricing/smb-promo/") do |c|
+        - c.with_title do
+          = s_('TargettedMessages|Get access to both GitLab Premium and Duo Pro for %{strike}$48%{end_strike} $19 a month for a year!').html_safe % { strike: '<s>'.html_safe, end_strike: '</s>'.html_safe }
+        %p
+          = s_('TargettedMessages|With GitLab Premium and Duo Pro, you’ll be able to stay ahead of the competition by shortening cycle times and increasing developer productivity. To take advantage of the offer, get in touch with our team today!')
+
+  .billing-plan-divider.gl-mx-auto
+    = render GitlabSubscriptions::DuoEnterpriseAlert::FreeComponent.new(namespace: namespace, user: current_user)
+
+  .gl-flex-row.gl-flex.gl-flex-wrap.gl-justify-center.gl-mb-7.gl-ml-7{ data: { track_action: 'render', testid: 'billing-plans' } }
+    = render Billing::FreePlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+    = render Billing::PremiumPlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+    = render Billing::UltimatePlanComponent.new(plans_data: plans_data, namespace: namespace, current_plan: current_plan)
+
+  - if namespace.trial_active?
+    .gl-mb-9.gl-mx-auto.billing-plan-divider
+      #js-billing-plans{ data: subscription_plan_data_attributes(namespace, current_plan, read_only: read_only) }
+
+  = render 'trusted_by_logos'
+  - image_alt = s_('InProductMarketing|Team members collaborating')
+  = image_tag 'marketing/free-trial-team-members.png', alt: image_alt, title: image_alt, width: 210, height: 90, class: 'gl-mb-3'
+  .gl-text-size-h1.gl-font-bold.gl-leading-24.gl-mb-5
+    = s_("BillingPlans|Have a question? We're here to help.")
+  .js-hand-raise-lead-trigger{ data: free_plan_billing_hand_raise_lead_data }

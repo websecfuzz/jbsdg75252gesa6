@@ -1,0 +1,9 @@
+---
+name: ui_for_virtual_registries
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/493842
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/185201
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/525934
+milestone: '17.11'
+group: group::package registry
+type: wip
+default_enabled: false

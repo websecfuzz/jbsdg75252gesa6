@@ -1,0 +1,11 @@
+Multi-language LOC Report
+Directory scanned: /projects/fuzzing/SQLIFuzz/crawler_WUT/bwapp/
+
+Total number of files: 268
+
+Total JavaScript LOC (excluding blanks/comments): 152
+Total CSS LOC (excluding blanks/comments): 2
+Total PHP LOC (excluding blanks/comments): 31820
+Total HTML LOC (excluding blanks/comments): 14
+
+Grand Total LOC: 31988

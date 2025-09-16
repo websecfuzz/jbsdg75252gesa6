@@ -1,0 +1,10 @@
+---
+name: duo_workflow_workhorse
+description: Control if Workhorse can proxy DW service
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547502
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/193149
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/547503
+milestone: '18.2'
+group: group::duo workflow
+type: beta
+default_enabled: true

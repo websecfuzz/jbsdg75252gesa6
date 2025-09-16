@@ -1,0 +1,4 @@
+For plugin of jquery-archive-list-widget.6.1.5.zip
+Starting File: /var/www/html/wp-content/plugins/jquery-archive-list-widget/classes/backend/class-js-archive-list-rest-endpoints.php
+
+http://localhost:8081/wp-json/jalw/v1/archive/2025/08/?year=2023'

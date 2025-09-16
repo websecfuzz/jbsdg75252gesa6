@@ -1,0 +1,9 @@
+---
+name: geo_replicables_filtered_list_view
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/410401
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/184205
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/524420
+milestone: '17.10'
+group: group::geo
+type: beta
+default_enabled: true

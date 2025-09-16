@@ -1,0 +1,9 @@
+---
+name: custom_ability_admin_security_testing
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/508649
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/176628
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/513510
+milestone: "17.9"
+group: group::security platform management
+type: beta
+default_enabled: false

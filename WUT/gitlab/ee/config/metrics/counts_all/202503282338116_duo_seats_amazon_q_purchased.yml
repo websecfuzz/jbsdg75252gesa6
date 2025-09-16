@@ -1,0 +1,19 @@
+---
+data_category: standard
+key_path: duo_seats.amazon_q_purchased
+description: The number of Duo Amazon Q seats purchased
+product_group: provision
+value_type: number
+status: active
+milestone: "17.11"
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/186269
+time_frame: none
+data_source: system
+instrumentation_class: DuoSeatsMetric
+options:
+  subscription_type: amazon_q
+  seats_type: purchased
+tiers:
+  - premium
+  - ultimate
+performance_indicator_type: []

@@ -1,0 +1,14 @@
+mutation generateCubeQuery(
+  $question: String!
+  $resourceId: AiModelID!
+  $clientSubscriptionId: String
+) {
+  aiAction(
+    input: {
+      generateCubeQuery: { question: $question, resourceId: $resourceId }
+      clientSubscriptionId: $clientSubscriptionId
+    }
+  ) {
+    errors
+  }
+}

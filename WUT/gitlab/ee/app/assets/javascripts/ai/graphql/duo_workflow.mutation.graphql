@@ -1,0 +1,25 @@
+mutation createAiDuoWorkflow(
+  $projectId: ProjectID
+  $goal: String!
+  $workflowDefinition: String!
+  $agentPrivileges: [Int!]
+  $preApprovedAgentPrivileges: [Int!]
+  $allowAgentToRequestUser: Boolean
+) {
+  aiDuoWorkflowCreate(
+    input: {
+      projectId: $projectId
+      environment: WEB
+      goal: $goal
+      workflowDefinition: $workflowDefinition
+      agentPrivileges: $agentPrivileges
+      preApprovedAgentPrivileges: $preApprovedAgentPrivileges
+      allowAgentToRequestUser: $allowAgentToRequestUser
+    }
+  ) {
+    workflow {
+      id
+    }
+    errors
+  }
+}

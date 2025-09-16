@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/pg_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=postgres
+    depends_on:
+      - postgres
+        
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  nodebb:
+    build: .
+    # image: ghcr.io/nodebb/nodebb:latest
+    restart: unless-stopped
+    ports:
+      - '4567:4567' # comment this out if you don't want to expose NodeBB to the host, or change the first number to any port you want
+    volumes:
+       - ./:/test
+#      - nodebb-build:/usr/src/app/build
+#      - nodebb-uploads:/usr/src/app/public/uploads
+#      - nodebb-config:/opt/config
+#      - ./install/docker/setup.json:/usr/src/app/setup.json
+
+  postgres:
+    #image: postgres:17.4-alpine
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM postgres:17.4-alpine
+#        COPY ./_resources/nodebb.sql /docker-entrypoint-initdb.d/db.sql
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nodebb
+      POSTGRES_PASSWORD: nodebb
+      POSTGRES_DB: nodebb
+
+  redis:
+    image: redis:7.4.3-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes', '--loglevel', 'warning']
+    # command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"] # uncomment if you want to use snapshotting instead of AOF
+    profiles:
+      - redis

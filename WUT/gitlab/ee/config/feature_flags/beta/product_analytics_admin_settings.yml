@@ -1,0 +1,9 @@
+---
+name: product_analytics_admin_settings
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/493870
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/167192
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/494428
+milestone: '17.5'
+group: group::platform insights
+type: beta
+default_enabled: false

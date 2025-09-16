@@ -1,0 +1,10 @@
+---
+name: collect_security_policy_violations_resolved_audit_events
+description: Collect an audit event when all security policy violations are resolved
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/549812
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/194928
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550385
+milestone: '18.2'
+group: group::security policies
+type: gitlab_com_derisk
+default_enabled: false

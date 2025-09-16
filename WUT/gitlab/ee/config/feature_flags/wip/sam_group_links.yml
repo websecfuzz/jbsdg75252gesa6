@@ -1,0 +1,10 @@
+---
+name: sam_group_links
+description: 'Seat assignment model group links'
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/17845
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/191085
+rollout_issue_url:
+milestone: '18.1'
+group: group::utilization
+type: wip
+default_enabled: false

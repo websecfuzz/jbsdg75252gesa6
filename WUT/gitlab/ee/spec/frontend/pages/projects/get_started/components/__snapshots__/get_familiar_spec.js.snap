@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get Familiar component renders correctly 1`] = `
+<div>
+  <header>
+    <h2
+      class="gl-text-size-h2"
+    >
+      Get familiar with GitLab Duo
+    </h2>
+    <p
+      class="gl-mb-3 gl-text-subtle"
+    >
+      Explore these resources to learn essential features and best practices.
+    </p>
+  </header>
+  <gl-card-stub
+    bodyclass=""
+    data-testid="duo-code-suggestions-card"
+    footerclass="gl-py-0 gl-bg-transparent gl-border-t-0"
+    headerclass="gl-font-bold"
+  >
+    GitLab Duo Code Suggestions
+    <div
+      class="gl-px-5 gl-py-4"
+    >
+      <ul
+        aria-label="GitLab Duo code features"
+        class="gl-mb-0 gl-pl-4"
+      >
+        <li
+          class="gl-mb-3"
+        >
+          <strong>
+            Code completion:
+          </strong>
+          Suggests completions to the current line you are typing. Use it to complete one or a few lines of code.
+        </li>
+        <li
+          class="gl-mb-3"
+        >
+          <strong>
+            Code generation:
+          </strong>
+          Generates code based on a natural language code comment block. Write a comment, then press Enter to generate code based on the context of your comment, and the rest of your code.
+        </li>
+        <li
+          class="gl-mb-3"
+        >
+          <strong>
+            Context-aware suggestions:
+          </strong>
+          Uses open files in your IDE, content before and after the cursor, filename, and extension type to provide relevant suggestions.
+        </li>
+        <li>
+          <strong>
+            Support for multiple languages:
+          </strong>
+          Works with various programming languages supported by your development environment.
+        </li>
+      </ul>
+    </div>
+    <div
+      class="gl-display-flex gl-justify-content-start gl-pb-6 gl-pt-1"
+    >
+      <gl-button-stub
+        aria-label="Try the walkthrough in a new tab"
+        buttontextclasses=""
+        category="tertiary"
+        data-testid="walkthrough-link"
+        href="https://gitlab.navattic.com/gitlab-with-duo-get-started-page"
+        icon=""
+        size="medium"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="default"
+      >
+        Try walkthrough
+        <gl-icon-stub
+          class="gl-ml-2"
+          name="external-link"
+          size="16"
+          variant="current"
+        />
+      </gl-button-stub>
+    </div>
+  </gl-card-stub>
+</div>
+`;

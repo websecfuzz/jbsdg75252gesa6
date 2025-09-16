@@ -1,0 +1,16 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "confidential": true
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

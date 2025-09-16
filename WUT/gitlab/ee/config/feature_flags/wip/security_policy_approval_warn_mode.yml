@@ -1,0 +1,9 @@
+---
+name: security_policy_approval_warn_mode
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/15552
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/175906
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/505352
+milestone: '17.8'
+group: group::security policies
+type: wip
+default_enabled: false

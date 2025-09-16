@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ee/BoardContentSidebar incident sidebar matches the snapshot 1`] = `
+<div
+  class="boards-sidebar"
+>
+  <h2
+    class="gl-leading-24 gl-my-0 gl-text-size-h2"
+  >
+    Incident details
+  </h2>
+  <sidebar-todo-widget-stub
+    class="gl-mt-3"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    issuableid="gid://gitlab/Issue/436"
+    issuableiid="27"
+    issuabletype="issue"
+  />
+  <board-sidebar-title-stub
+    activeitem="[object Object]"
+    data-testid="sidebar-title"
+  />
+  <sidebar-assignees-widget-stub
+    editable="true"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    initialassignees="[object Object],[object Object]"
+    issuabletype="issue"
+  />
+  <div>
+    <sidebar-dropdown-widget-stub
+      attrworkspacepath="gitlab-org/test-subgroup/gitlab-test"
+      data-testid="sidebar-milestones"
+      iid="27"
+      issuableattribute="milestone"
+      issuabletype="issue"
+      issueid="gid://gitlab/Issue/436"
+      workspacepath="gitlab-org/test-subgroup/gitlab-test"
+    />
+  </div>
+  <sidebar-time-tracker-stub
+    canaddtimeentries="true"
+    cansettimeestimate="true"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    issuableid="gid://gitlab/Issue/436"
+    issuableiid="27"
+  />
+  <sidebar-date-widget-stub
+    data-testid="sidebar-due-date"
+    datetype="dueDate"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+  <sidebar-labels-widget-stub
+    allowmultiselect="true"
+    attrworkspacepath="gitlab-org/test-subgroup/gitlab-test"
+    class="block labels"
+    dropdownbuttontext="Label"
+    footercreatelabeltitle="Create project label"
+    footermanagelabeltitle="Manage project labels"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+    labelcreatetype="project"
+    labelscreatetitle="Create project label"
+    labelsfilterbasepath=""
+    labelsfilterparam="label_name"
+    labelslisttitle="Select labels"
+    selectedlabels=""
+    variant="sidebar"
+    workspacetype="project"
+  >
+    None
+  </sidebar-labels-widget-stub>
+  <sidebar-severity-widget-stub
+    iid="27"
+    initialseverity="UNKNOWN"
+    issuabletype="incident"
+    projectpath="gitlab-org/test-subgroup/gitlab-test"
+  />
+  <sidebar-editable-item-stub
+    buttonid=""
+    class="block health-status"
+    editarialabel=""
+    editkeyshortcuts=""
+    edittooltip=""
+    title="Health status"
+    tracking="[object Object]"
+  >
+    <div
+      class="sidebar-collapsed-icon"
+    >
+      <gl-icon-stub
+        name="status-health"
+        size="16"
+        variant="current"
+      />
+      <p
+        class="collapse-truncated-title gl-pt-2 gl-px-3 gl-text-sm"
+      >
+        None
+      </p>
+    </div>
+    <div
+      class="hide-collapsed"
+    >
+      <span
+        class="gl-text-subtle"
+      >
+        None
+      </span>
+    </div>
+    <health-status-dropdown-stub />
+  </sidebar-editable-item-stub>
+  <sidebar-confidentiality-widget-stub
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+  <sidebar-subscriptions-widget-stub
+    data-testid="sidebar-notifications"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+</div>
+`;
+
+exports[`ee/BoardContentSidebar issue sidebar matches the snapshot 1`] = `
+<div
+  class="boards-sidebar"
+>
+  <h2
+    class="gl-leading-24 gl-my-0 gl-text-size-h2"
+  >
+    Issue details
+  </h2>
+  <sidebar-todo-widget-stub
+    class="gl-mt-3"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    issuableid="gid://gitlab/Issue/436"
+    issuableiid="27"
+    issuabletype="issue"
+  />
+  <board-sidebar-title-stub
+    activeitem="[object Object]"
+    data-testid="sidebar-title"
+  />
+  <sidebar-assignees-widget-stub
+    editable="true"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    initialassignees="[object Object],[object Object]"
+    issuabletype="issue"
+  />
+  <sidebar-dropdown-widget-stub
+    attrworkspacepath="gitlab-org/test-subgroup"
+    data-testid="sidebar-epic"
+    iid="27"
+    issuableattribute="epic"
+    issuabletype="issue"
+    issueid="gid://gitlab/Issue/436"
+    workspacepath="gitlab-org/test-subgroup/gitlab-test"
+  />
+  <div>
+    <sidebar-dropdown-widget-stub
+      attrworkspacepath="gitlab-org/test-subgroup/gitlab-test"
+      data-testid="sidebar-milestones"
+      iid="27"
+      issuableattribute="milestone"
+      issuabletype="issue"
+      issueid="gid://gitlab/Issue/436"
+      workspacepath="gitlab-org/test-subgroup/gitlab-test"
+    />
+    <sidebar-dropdown-widget-stub
+      attrworkspacepath="gitlab-org/test-subgroup"
+      class="gl-mt-5"
+      data-testid="iteration-edit"
+      iid="27"
+      issuableattribute="iteration"
+      issuabletype="issue"
+      issueid="gid://gitlab/Issue/436"
+      workspacepath="gitlab-org/test-subgroup/gitlab-test"
+    />
+  </div>
+  <sidebar-time-tracker-stub
+    canaddtimeentries="true"
+    cansettimeestimate="true"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    issuableid="gid://gitlab/Issue/436"
+    issuableiid="27"
+  />
+  <sidebar-date-widget-stub
+    data-testid="sidebar-due-date"
+    datetype="dueDate"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+  <sidebar-labels-widget-stub
+    allowmultiselect="true"
+    attrworkspacepath="gitlab-org/test-subgroup/gitlab-test"
+    class="block labels"
+    dropdownbuttontext="Label"
+    footercreatelabeltitle="Create project label"
+    footermanagelabeltitle="Manage project labels"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+    labelcreatetype="project"
+    labelscreatetitle="Create project label"
+    labelsfilterbasepath=""
+    labelsfilterparam="label_name"
+    labelslisttitle="Select labels"
+    selectedlabels=""
+    variant="sidebar"
+    workspacetype="project"
+  >
+    None
+  </sidebar-labels-widget-stub>
+  <sidebar-editable-item-stub
+    buttonid=""
+    canedit="true"
+    class="block weight"
+    data-testid="sidebar-weight"
+    editarialabel=""
+    editkeyshortcuts=""
+    edittooltip=""
+    title="Weight"
+    tracking="[object Object]"
+  >
+    <div
+      class="gl-flex gl-items-center hide-collapsed"
+    >
+      <span
+        class="gl-text-subtle"
+        data-testid="sidebar-weight-value"
+      >
+        None
+      </span>
+    </div>
+    <div
+      class="js-weight-collapsed-block sidebar-collapsed-icon"
+      title="Weight"
+    >
+      <gl-icon-stub
+        name="weight"
+        size="16"
+        variant="current"
+      />
+      <span
+        class="collapse-truncated-title gl-pt-2 gl-px-3 gl-text-sm js-weight-collapsed-weight-label"
+      >
+        None
+      </span>
+    </div>
+    <gl-form-stub>
+      <gl-form-group-stub
+        label="Weight"
+        label-for="weight-input"
+        label-sr-only=""
+        labeldescription=""
+        optionaltext="(optional)"
+      >
+        <gl-form-input-stub
+          id="reference-0"
+          min="0"
+          placeholder="Enter a number"
+          type="number"
+          value=""
+        />
+      </gl-form-group-stub>
+    </gl-form-stub>
+  </sidebar-editable-item-stub>
+  <sidebar-editable-item-stub
+    buttonid=""
+    class="block health-status"
+    editarialabel=""
+    editkeyshortcuts=""
+    edittooltip=""
+    title="Health status"
+    tracking="[object Object]"
+  >
+    <div
+      class="sidebar-collapsed-icon"
+    >
+      <gl-icon-stub
+        name="status-health"
+        size="16"
+        variant="current"
+      />
+      <p
+        class="collapse-truncated-title gl-pt-2 gl-px-3 gl-text-sm"
+      >
+        None
+      </p>
+    </div>
+    <div
+      class="hide-collapsed"
+    >
+      <span
+        class="gl-text-subtle"
+      >
+        None
+      </span>
+    </div>
+    <health-status-dropdown-stub />
+  </sidebar-editable-item-stub>
+  <sidebar-confidentiality-widget-stub
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+  <sidebar-subscriptions-widget-stub
+    data-testid="sidebar-notifications"
+    fullpath="gitlab-org/test-subgroup/gitlab-test"
+    iid="27"
+    issuabletype="issue"
+  />
+</div>
+`;

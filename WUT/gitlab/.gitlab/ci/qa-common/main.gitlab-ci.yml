@@ -1,0 +1,188 @@
+default:
+  interruptible: true
+
+workflow:
+  name: $PIPELINE_NAME
+
+include:
+  - local: .gitlab/ci/version.yml
+  - local: .gitlab/ci/global.gitlab-ci.yml
+  - component: "gitlab.com/gitlab-org/quality/pipeline-common/allure-report@11.9.0"
+    inputs:
+      job_name: "e2e-test-report"
+      job_stage: "report"
+      report_title: '<a href="https://handbook.gitlab.com/handbook/engineering/testing/end-to-end-pipeline-monitoring/#allure-report">E2E Test Result Summary</a>'
+      aws_access_key_id_variable_name: "QA_ALLURE_AWS_ACCESS_KEY_ID"
+      aws_secret_access_key_variable_name: "QA_ALLURE_AWS_SECRET_ACCESS_KEY"
+      gitlab_auth_token_variable_name: "PROJECT_TOKEN_FOR_CI_SCRIPTS_API_USAGE"
+      allure_job_name: "${QA_RUN_TYPE}"
+  - project: gitlab-org/quality/pipeline-common
+    ref: 11.9.0
+    file:
+      - /ci/notify-slack.gitlab-ci.yml
+      - /ci/qa-report.gitlab-ci.yml
+      - /ci/junit.gitlab-ci.yml
+
+stages:
+  - test
+  - report
+  - notify
+
+# ==========================================
+# Templates
+# ==========================================
+
+# add flag to ignore test runtime when creating example runtime data reports
+.with-ignored-runtime-data:
+  variables:
+    QA_IGNORE_RUNTIME_DATA: "true"
+
+.parallel:
+  parallel: 5
+
+.ruby-image:
+  # Because this pipeline template can be included directly in other projects,
+  # image path and registry needs to be defined explicitly
+  image: ${REGISTRY_HOST}/${REGISTRY_GROUP}/gitlab-build-images/ci/${BUILD_OS}-${OS_VERSION}-slim-ruby-${RUBY_VERSION}:rubygems-${RUBYGEMS_VERSION}-git-${GIT_VERSION}
+
+.qa-install:
+  extends:
+    - .ruby-image
+    - .qa-cache
+  variables:
+    BUNDLE_SUPPRESS_INSTALL_USING_MESSAGES: "true"
+    BUNDLE_SILENCE_ROOT_WARNING: "true"
+    BUNDLE_WITHOUT: development
+  before_script:
+    - cd qa && bundle install
+
+.docker-in-docker:
+  services:
+    - name: "$GL_DOCKER_REGISTRY_MIRROR/docker:${DOCKER_VERSION}-dind"
+      alias: docker
+      entrypoint: ["sh", "-c", "dockerd-entrypoint.sh $GL_DOCKER_DIND_OPTIONS"]
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+    GL_DOCKER_REGISTRY_MIRROR: mirror.gcr.io
+    GL_DOCKER_REGISTRY_MIRROR_ENDPOINT: https://${GL_DOCKER_REGISTRY_MIRROR}
+    GL_DOCKER_DIND_OPTIONS: "--registry-mirror=$GL_DOCKER_REGISTRY_MIRROR_ENDPOINT"
+
+.e2e-test-variables:
+  variables:
+    QA_GENERATE_ALLURE_REPORT: "true"
+    QA_CAN_TEST_PRAEFECT: "false"
+    QA_INTERCEPT_REQUESTS: "true"
+    QA_ARTIFACTS_DIR: $CI_PROJECT_DIR
+    QA_SUITE_STATUS_ENV_FILE: "${CI_PROJECT_DIR}/suite_status.env"
+    QA_ALLOW_LOCAL_REQUESTS: "true"
+    GITLAB_LICENSE_MODE: test
+    GITLAB_QA_ADMIN_ACCESS_TOKEN: $QA_ADMIN_ACCESS_TOKEN
+    FF_NETWORK_PER_BUILD: "true"
+
+.e2e-test-base:
+  extends:
+    - .docker-in-docker
+    - .qa-install
+    - .e2e-test-variables
+  variables:
+    # variables related to failure issue reporting
+    # default values from /ci/qa-report.gitlab-ci.yml will work with gitlab-qa orchestrator but not with cng and gdk tests
+    QA_RSPEC_JSON_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/rspec-*.json
+    QA_TEST_METRICS_JSON_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/test-metrics-*.json
+    QA_SYSTEM_LOG_FILE_PATTERN: $CI_PROJECT_DIR/test_output/logs
+  script:
+    - source $CI_PROJECT_DIR/scripts/utils.sh
+    - source $CI_PROJECT_DIR/scripts/rspec_helpers.sh
+    - echo "SUITE_RAN=true" > "${QA_SUITE_STATUS_ENV_FILE}"
+    - run_e2e_specs "${QA_GITLAB_URL}" "${QA_TESTS}" "${QA_RSPEC_TAGS}"
+
+.upload-test-runtime-data:
+  extends:
+    - .qa-install
+  stage: report
+  when: on_success
+  variables:
+    QA_JSON_REPORT_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/rspec-*.json
+  script:
+    - bundle exec rake "knapsack:upload_example_runtimes[$QA_JSON_REPORT_FILE_PATTERN]"
+
+.export-test-metrics:
+  extends:
+    - .qa-install
+  stage: report
+  when: always
+  variables:
+    QA_METRICS_REPORT_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/test-metrics-*.json
+  script:
+    - bundle exec rake "ci:export_test_metrics[$QA_METRICS_REPORT_FILE_PATTERN]"
+
+.export-code-paths-mapping:
+  extends:
+    - .qa-install
+  stage: report
+  when: always
+  variables:
+    QA_CODE_PATHS_MAPPING_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/test-code-paths-mapping-*.json
+  script:
+    - bundle exec rake "ci:export_code_paths_mapping[$QA_CODE_PATHS_MAPPING_FILE_PATTERN]"
+  rules:
+    - if: '$COVERBAND_ENABLED == "true"'
+
+.export-frontend-code-paths-mapping:
+  extends:
+    - .qa-install
+  stage: report
+  when: always
+  variables:
+    QA_FRONTEND_PATHS_MAPPING_FILE_PATTERN: $CI_PROJECT_DIR/qa/tmp/js-coverage-by-example-*.json
+  script:
+    - bundle exec rake "ci:export_frontend_code_paths_mapping[$QA_FRONTEND_PATHS_MAPPING_FILE_PATTERN]"
+  rules:
+    - if: '$BABEL_ENV == "istanbul"'
+
+.notify-slack:
+  extends:
+    - .post-to-slack
+    - .qa-install
+  stage: notify
+  variables:
+    QA_RSPEC_XML_FILE_PATTERN: "$CI_PROJECT_DIR/qa/tmp/rspec-*.xml"
+    GITLAB_API_TOKEN: $PROJECT_TOKEN_FOR_CI_SCRIPTS_API_USAGE
+    SLACK_ICON_EMOJI: ci_failing
+    STATUS_SYM: ☠️
+    STATUS: failed
+    TYPE: "($QA_RUN_TYPE) "
+    ALLURE_JOB_NAME: $QA_RUN_TYPE
+  when: always
+  script:
+    - |
+      if [ "$SUITE_FAILED" != "true" ] && [ "$SUITE_RAN" == "true" ]; then
+        echo "Test suite passed. Exiting..."
+        exit 0
+      fi
+    - bundle exec prepare-stage-reports --input-files "${QA_RSPEC_XML_FILE_PATTERN}"
+    - !reference [.post-to-slack, script]
+
+.failure-videos:
+  variables:
+    USE_SELENOID: "true"
+    QA_RECORD_VIDEO: "true"
+    QA_REMOTE_GRID: "selenoid:4444"
+
+# ==========================================
+# Pre stage
+# ==========================================
+dont-interrupt-me:
+  stage: .pre
+  interruptible: false
+  script:
+    - echo "This jobs makes sure this pipeline won't be interrupted! See https://docs.gitlab.com/ee/ci/yaml/#interruptible."
+  rules:
+    - if: '$PARENT_PIPELINE_SOURCE == "schedule"'
+      allow_failure: true
+    - if: '$CI_MERGE_REQUEST_EVENT_TYPE == "merged_result" || $CI_MERGE_REQUEST_EVENT_TYPE == "detached"'
+      when: manual
+      allow_failure: true

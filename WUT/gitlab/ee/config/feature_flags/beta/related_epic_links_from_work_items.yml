@@ -1,0 +1,9 @@
+---
+name: related_epic_links_from_work_items
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/502553
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/179742
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/516212
+milestone: '17.10'
+group: group::product planning
+type: beta
+default_enabled: false

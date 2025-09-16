@@ -1,0 +1,48 @@
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=db
+    depends_on:
+      - db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+      
+  db:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mysql:8.4.0
+        COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    command: mysqld
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER_HOST: "%"
+
+  web-prestashop:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      args:
+        APP: prestashop
+    environment:
+      FUZZER_COVERAGE_PATH: /var/www/html/
+      FUZZER_COMPRESS: 1
+      REQUIRES_DB: 1
+    ports:
+      - 8081:8081

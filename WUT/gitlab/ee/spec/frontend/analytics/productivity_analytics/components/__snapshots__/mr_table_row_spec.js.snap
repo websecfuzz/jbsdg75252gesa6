@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MergeRequestTableRow component on creation matches the snapshot 1`] = `
+<div
+  class="gl-border-b gl-border-b-solid gl-border-none gl-responsive-table-row gl-responsive-table-row-layout md:gl-border-b-0"
+>
+  <div
+    class="flex-md-row flex-row-reverse gl-border-none gl-flex js-mr-details justify-content-between justify-content-md-start section-50 table-section"
+  >
+    <div
+      class="gl-flex mr-md-2"
+    >
+      <gl-avatar-stub
+        alt="avatar"
+        class="!gl-mr-0"
+        entityid="0"
+        entityname=""
+        shape="circle"
+        size="16"
+      />
+    </div>
+    <div
+      class="flex-column gl-flex gl-grow gl-mr-1 overflow-auto"
+    >
+      <h5
+        class="gl-block gl-max-w-34 item-title my-0 str-truncated"
+      >
+        <gl-link-stub
+          href="http://gitlab.example.com/gitlab-org/gitlab-test/merge_requests/10"
+          target="_blank"
+        >
+          This is a test MR
+        </gl-link-stub>
+      </h5>
+      <ul
+        class="gl-text-subtle horizontal-list list-items-separated mb-0"
+      >
+        <li>
+          !10
+        </li>
+        <li>
+          1 commit
+        </li>
+        <li>
+          3 LOC/commit
+        </li>
+        <li>
+          1 files touched
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="align-items-start flex-row gl-border-none gl-flex js-mr-metrics section-50 table-section"
+  >
+    <metric-column-stub
+      label="Time to merge"
+      type="days_to_merge"
+      value="24"
+    />
+    <metric-column-stub
+      label="Time from first comment to last commit"
+      type="time_to_last_commit"
+      value="0"
+    />
+  </div>
+</div>
+`;

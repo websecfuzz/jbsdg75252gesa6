@@ -1,0 +1,9 @@
+---
+name: duo_workflow_work_item_tools
+feature_issue_url: https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/work_items/1145
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195335
+rollout_issue_url: https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/issues/1205
+milestone: '18.2'
+group: group::duo chat
+type: gitlab_com_derisk
+default_enabled: false

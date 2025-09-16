@@ -1,0 +1,78 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "bool": {
+            "_name": "filters:permissions:global",
+            "should": [
+              {
+                "bool": {
+                  "filter": [
+                    {
+                      "terms": {
+                        "_name": "filters:permissions:global:visibility_level:public_and_internal",
+                        "visibility_level": [
+                          20,
+                          10
+                        ]
+                      }
+                    }
+                  ],
+                  "should": [
+                    {
+                      "terms": {
+                        "_name": "filters:permissions:global:repository_access_level:enabled",
+                        "repository_access_level": [
+                          20
+                        ]
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "prefix": {
+                        "traversal_ids": {
+                          "_name": "filters:permissions:global:ancestry_filter:descendants",
+                          "value": "NAMESPACE_ANCESTRY"
+                        }
+                      }
+                    }
+                  ],
+                  "filter": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "terms": {
+                              "_name": "filters:permissions:global:repository_access_level:enabled_or_private",
+                              "repository_access_level": [
+                                20,
+                                10
+                              ]
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ],
+                  "minimum_should_match": 1
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ],
+      "must_not": [],
+      "must": [],
+      "should": []
+    }
+  }
+}

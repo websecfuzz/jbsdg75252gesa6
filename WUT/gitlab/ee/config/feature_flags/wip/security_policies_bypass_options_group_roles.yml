@@ -1,0 +1,9 @@
+---
+name: security_policies_bypass_options_group_roles
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/14090
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/issues/551882
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/551920
+milestone: '18.2'
+group: group::security policies
+type: wip
+default_enabled: false

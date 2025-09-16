@@ -1,0 +1,12 @@
+---
+description: Tracks when a SMS message is successfully sent via Telesign
+action: telesign_sms_delivery_success
+identifiers:
+- user
+product_group: anti-abuse
+milestone: '16.6'
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/169117
+tiers:
+- free
+- premium
+- ultimate

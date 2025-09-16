@@ -1,0 +1,9 @@
+---
+name: self_managed_scim_group_sync
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/15990
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/180831
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553662
+milestone: '17.10'
+group: group::provision
+type: beta
+default_enabled: true

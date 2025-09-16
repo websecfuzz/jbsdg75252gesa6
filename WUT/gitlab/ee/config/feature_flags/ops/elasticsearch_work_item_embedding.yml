@@ -1,0 +1,9 @@
+---
+name: elasticsearch_work_item_embedding
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/work_items/479776
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/169091
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/499449
+milestone: '17.6'
+group: group::global search
+type: ops
+default_enabled: false

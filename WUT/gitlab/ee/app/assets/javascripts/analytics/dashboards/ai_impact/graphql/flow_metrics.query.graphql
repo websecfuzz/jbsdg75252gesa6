@@ -1,0 +1,32 @@
+#import "~/analytics/shared/graphql/flow_metric_item.fragment.graphql"
+
+query aiImpactFlowMetricsQuery($fullPath: ID!, $startDate: Time!, $endDate: Time!) {
+  project(fullPath: $fullPath) {
+    id
+    flowMetrics {
+      cycle_time: cycleTime(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+      lead_time: leadTime(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+      median_time_to_merge: timeToMerge(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+    }
+  }
+  group(fullPath: $fullPath) {
+    id
+    flowMetrics {
+      cycle_time: cycleTime(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+      lead_time: leadTime(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+      median_time_to_merge: timeToMerge(from: $startDate, to: $endDate) {
+        ...FlowMetricItem
+      }
+    }
+  }
+}

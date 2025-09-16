@@ -1,0 +1,25 @@
+# Default variables for e2e test pipelines
+
+variables:
+  GIT_DEPTH: "20"
+  GIT_STRATEGY: "clone" # 'GIT_STRATEGY: clone' optimizes the pack-objects cache hit ratio
+  GIT_SUBMODULE_STRATEGY: "none"
+  FF_TIMESTAMPS: "true"
+  REGISTRY_HOST: "registry.gitlab.com"
+  REGISTRY_GROUP: "gitlab-org"
+  ALLURE_JOB_NAME: $CI_PROJECT_NAME
+  COLORIZED_LOGS: "true"
+  QA_LOG_LEVEL: "info"
+  # Used by gitlab-qa to set up a volume for `${CI_PROJECT_DIR}/qa/rspec:/home/gitlab/qa/rspec/`
+  QA_RSPEC_REPORT_PATH: "${CI_PROJECT_DIR}/qa/rspec"
+  QA_OMNIBUS_MR_TESTS: "only-smoke"
+  # Retry failed specs in separate process
+  QA_RETRY_FAILED_SPECS: "true"
+  # Helm chart ref used by test-on-cng pipeline
+  GITLAB_HELM_CHART_REF: "6cdb0e1cd4ceb7c9fd01ffa2f62c4a7a4c77a23b"
+  # Specific ref for cng-mirror project to trigger builds for
+  GITLAB_CNG_MIRROR_REF: "51637e0b7ab573aa0817945df517c7c0d0250d79"
+  # Makes sure some of the common scripts from pipeline-common use bundler to execute commands
+  RUN_WITH_BUNDLE: "true"
+  # Makes sure reporting script defined in .gitlab-qa-report from pipeline-common is executed from correct folder
+  QA_PATH: "qa"

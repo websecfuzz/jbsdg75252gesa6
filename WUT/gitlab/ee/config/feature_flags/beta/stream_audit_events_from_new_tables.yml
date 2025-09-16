@@ -1,0 +1,9 @@
+---
+name: stream_audit_events_from_new_tables
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/515317
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/179746
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/516895
+milestone: '17.9'
+group: group::compliance
+type: beta
+default_enabled: false

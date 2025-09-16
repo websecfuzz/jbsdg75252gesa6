@@ -1,0 +1,9 @@
+---
+name: security_inventory_dashboard
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/16484
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/177685
+rollout_issue_url:
+milestone: '17.10'
+group: group::security platform management
+type: beta
+default_enabled: true

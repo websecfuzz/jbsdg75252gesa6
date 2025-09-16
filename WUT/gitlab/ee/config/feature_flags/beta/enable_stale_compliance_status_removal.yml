@@ -1,0 +1,9 @@
+---
+name: enable_stale_compliance_status_removal
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/534323
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/186779
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/534323
+milestone: '17.11'
+group: group::compliance
+type: beta
+default_enabled: true

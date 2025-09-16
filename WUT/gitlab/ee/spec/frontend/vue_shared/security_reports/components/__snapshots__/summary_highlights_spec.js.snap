@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MR Widget Security Reports - Summary Highlights should display the summary highlights properly 1`] = `
+<div
+  class="gl-text-sm"
+>
+  <strong
+    class="gl-text-red-800"
+    data-testid="critical"
+  >
+    10 critical
+  </strong>
+  ,
+  <strong
+    class="gl-text-red-600"
+    data-testid="high"
+  >
+    20 high
+  </strong>
+  and
+  <strong
+    data-testid="other"
+  >
+    60 others
+  </strong>
+</div>
+`;

@@ -1,0 +1,12 @@
+---
+table_name: suggestions
+classes:
+- Suggestion
+feature_categories:
+- code_review_workflow
+description: Storing code suggestions within notes
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/8656
+milestone: '11.6'
+gitlab_schema: gitlab_main_cell
+sharding_key_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/550696
+table_size: small

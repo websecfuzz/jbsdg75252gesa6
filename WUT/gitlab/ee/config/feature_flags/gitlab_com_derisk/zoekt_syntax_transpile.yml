@@ -1,0 +1,10 @@
+---
+name: zoekt_syntax_transpile
+description:
+feature_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/537019
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/195463
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/553058
+milestone: '18.2'
+group: group::global search
+type: gitlab_com_derisk
+default_enabled: false

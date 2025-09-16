@@ -1,0 +1,9 @@
+---
+name: validity_checks
+feature_issue_url: https://gitlab.com/groups/gitlab-org/-/epics/13988
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/186220
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/531222
+milestone: '17.11'
+group: group::secret detection
+type: wip
+default_enabled: false

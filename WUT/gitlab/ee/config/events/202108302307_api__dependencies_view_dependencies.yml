@@ -1,0 +1,10 @@
+description: Show dependencies
+category: API::Dependencies
+action: view_dependencies
+extra_properties:
+identifiers:
+product_group: composition_analysis
+milestone: "12.6"
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/21664
+tiers:
+- ultimate

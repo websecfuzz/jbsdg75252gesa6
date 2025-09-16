@@ -1,0 +1,68 @@
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.js-archive-list a,
+.js-archive-list a:focus,
+.js-archive-list a:hover {
+  text-decoration: none;
+}
+.js-archive-list .loading {
+  display: inline-block;
+  padding-left: 5px;
+  vertical-align: middle;
+  width: 25px;
+}
+
+.jal-hide {
+  display: none;
+}
+
+.widget_jaw_widget ul.jaw_widget,
+ul.jaw_widget ul,
+body .wp-block-js-archive-list-archive-widget ul.jaw_widget,
+body .wp-block-js-archive-list-archive-widget ul.jaw_widget ul,
+body ul.jaw_widget {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.widget_jaw_widget ul.jaw_widget li,
+.wp-block-js-archive-list-archive-widget ul.jaw_widget li,
+.jaw_widget ul li {
+  padding-left: 1rem;
+  list-style: none;
+}
+.widget_jaw_widget ul.jaw_widget li::before,
+.wp-block-js-archive-list-archive-widget ul.jaw_widget li::before,
+.jaw_widget ul li::before {
+  content: "";
+}
+.widget_jaw_widget ul.jaw_widget li .post-date,
+.wp-block-js-archive-list-archive-widget ul.jaw_widget li .post-date,
+.jaw_widget ul li .post-date {
+  padding-left: 5px;
+}
+.widget_jaw_widget ul.jaw_widget li .post-date::before,
+.wp-block-js-archive-list-archive-widget ul.jaw_widget li .post-date::before,
+.jaw_widget ul li .post-date::before {
+  content: "—";
+  padding-right: 5px;
+}
+
+/** Bullet's padding **/
+.jaw_symbol {
+  margin-right: 0.5rem;
+}
+
+.jalw-controls .components-base-control {
+  width: 100%;
+}
+
+/*# sourceMappingURL=index.css.map*/

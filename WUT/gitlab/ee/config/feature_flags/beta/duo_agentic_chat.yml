@@ -1,0 +1,10 @@
+---
+name: duo_agentic_chat
+description:
+feature_issue_url:
+introduced_by_url:
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/542441
+milestone: '18.0'
+group: group::duo chat
+type: beta
+default_enabled: true

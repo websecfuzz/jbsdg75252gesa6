@@ -1,0 +1,9 @@
+---
+name: zoekt_rollout_worker
+feature_issue_url:
+introduced_by_url: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/175666
+rollout_issue_url: https://gitlab.com/gitlab-org/gitlab/-/issues/519660
+milestone: '17.9'
+group: group::global search
+type: ops
+default_enabled: true

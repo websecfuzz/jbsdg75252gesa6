@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExternalIssuesListRoot error handling when request fails displays error alert with "API error" when API responds with "["API <a href=\\"gitlab.com\\">error</a>"]" 1`] = `
+<span>
+  API
+  <a
+    href="gitlab.com"
+  >
+    error
+  </a>
+</span>
+`;
+
+exports[`ExternalIssuesListRoot error handling when request fails displays error alert with "API error" when API responds with "["API error"]" 1`] = `
+<span>
+  API error
+</span>
+`;
+
+exports[`ExternalIssuesListRoot error handling when request fails displays error alert with "API" when API responds with "["API <script src=\\"hax0r.xyz\\">error</script>"]" 1`] = `
+<span>
+  API
+</span>
+`;
+
+exports[`ExternalIssuesListRoot error handling when request fails displays error alert with "An error occurred while loading issues" when API responds with "undefined" 1`] = `
+<span>
+  An error occurred while loading issues
+</span>
+`;
+
+exports[`ExternalIssuesListRoot when request succeeds renders issuable-list component with correct props 1`] = `
+{
+  "activeIssuable": null,
+  "currentPage": 1,
+  "currentTab": "opened",
+  "defaultPageSize": 2,
+  "detailLoading": false,
+  "error": "",
+  "fullPath": null,
+  "hasNextPage": false,
+  "hasPreviousPage": false,
+  "hasScopedLabelsFeature": false,
+  "hiddenMetadataKeys": [],
+  "initialFilterValue": [],
+  "initialSortBy": "created_desc",
+  "isGridView": false,
+  "isManualOrdering": false,
+  "issuableItemClass": "",
+  "issuableSymbol": "#",
+  "issuables": [
+    {
+      "__typename": "JiraIssue",
+      "assignees": [
+        {
+          "__typename": "UserCore",
+          "avatarUrl": null,
+          "id": "user-2",
+          "name": "Kushal Pandya",
+          "webUrl": "https://gitlab-jira.atlassian.net/people/1920938475",
+        },
+      ],
+      "author": {
+        "__typename": "UserCore",
+        "avatarUrl": null,
+        "id": 0,
+        "name": "jhope",
+        "webUrl": "https://gitlab-jira.atlassian.net/people/5e32f803e127810e82875bc1",
+      },
+      "closedAt": null,
+      "createdAt": "2020-03-19T14:31:51.281Z",
+      "externalTracker": "jira",
+      "gitlabWebUrl": "",
+      "id": "IG-31596",
+      "labels": [
+        {
+          "__typename": "Label",
+          "color": "#0052CC",
+          "id": "label-1",
+          "name": "backend",
+          "textColor": "#FFFFFF",
+          "title": "backend",
+        },
+      ],
+      "projectId": 1,
+      "references": {
+        "relative": "IG-31596",
+      },
+      "status": "Selected for Development",
+      "title": "Eius fuga voluptates.",
+      "updatedAt": "2020-10-20T07:01:45.865Z",
+      "webUrl": "https://gitlab-jira.atlassian.net/browse/IG-31596",
+    },
+    {
+      "__typename": "JiraIssue",
+      "assignees": [],
+      "author": {
+        "__typename": "UserCore",
+        "avatarUrl": null,
+        "id": 1,
+        "name": "Gabe Weaver",
+        "webUrl": "https://gitlab-jira.atlassian.net/people/5e320a31fe03e20c9d1dccde",
+      },
+      "closedAt": null,
+      "createdAt": "2020-03-19T14:31:50.677Z",
+      "externalTracker": "jira",
+      "gitlabWebUrl": "",
+      "id": "IG-31595",
+      "labels": [],
+      "projectId": 1,
+      "references": {
+        "relative": "IG-31595",
+      },
+      "status": "Backlog",
+      "title": "Hic sit sint ducimus ea et sint.",
+      "updatedAt": "2020-03-19T14:31:50.677Z",
+      "webUrl": "https://gitlab-jira.atlassian.net/browse/IG-31595",
+    },
+    {
+      "__typename": "JiraIssue",
+      "assignees": [],
+      "author": {
+        "__typename": "UserCore",
+        "avatarUrl": null,
+        "id": 2,
+        "name": "Gabe Weaver",
+        "webUrl": "https://gitlab-jira.atlassian.net/people/5e320a31fe03e20c9d1dccde",
+      },
+      "closedAt": null,
+      "createdAt": "2020-03-19T14:31:50.012Z",
+      "externalTracker": "jira",
+      "gitlabWebUrl": "",
+      "id": "IG-31594",
+      "labels": [],
+      "projectId": 1,
+      "references": {
+        "relative": "IG-31594",
+      },
+      "status": "Backlog",
+      "title": "Alias ut modi est labore.",
+      "updatedAt": "2020-03-19T14:31:50.012Z",
+      "webUrl": "https://gitlab-jira.atlassian.net/browse/IG-31594",
+    },
+  ],
+  "issuablesLoading": false,
+  "labelFilterParam": "labels",
+  "namespace": "gitlab-org/gitlab-test",
+  "nextPage": 2,
+  "preventRedirect": false,
+  "previousPage": 0,
+  "recentSearchesStorageKey": "jira_issues",
+  "searchInputPlaceholder": "Search Jira issues",
+  "searchTokens": [
+    {
+      "defaultLabels": [],
+      "fetchLabels": [Function],
+      "icon": "labels",
+      "operators": [
+        {
+          "description": "is",
+          "value": "=",
+        },
+      ],
+      "suggestionsDisabled": true,
+      "symbol": "~",
+      "title": "Label",
+      "token": "LabelTokenMock",
+      "type": "label",
+      "unique": false,
+    },
+  ],
+  "showBulkEditSidebar": false,
+  "showFilteredSearchFriendlyText": false,
+  "showPageSizeSelector": false,
+  "showPaginationControls": true,
+  "showWorkItemTypeIcon": false,
+  "sortOptions": [
+    {
+      "id": 1,
+      "sortDirection": {
+        "ascending": "created_asc",
+        "descending": "created_desc",
+      },
+      "title": "Created date",
+    },
+    {
+      "id": 2,
+      "sortDirection": {
+        "ascending": "updated_asc",
+        "descending": "updated_desc",
+      },
+      "title": "Updated date",
+    },
+  ],
+  "syncFilterAndSort": false,
+  "tabCounts": null,
+  "tabs": [
+    {
+      "id": "state-opened",
+      "name": "opened",
+      "title": "Open",
+      "titleTooltip": "Filter by issues that are currently opened.",
+    },
+    {
+      "id": "state-closed",
+      "name": "closed",
+      "title": "Closed",
+      "titleTooltip": "Filter by issues that are currently closed.",
+    },
+    {
+      "id": "state-all",
+      "name": "all",
+      "title": "All",
+      "titleTooltip": "Show all issues.",
+    },
+  ],
+  "totalItems": 3,
+  "truncateCounts": false,
+  "urlParams": {
+    "assignee_username": undefined,
+    "author_username": undefined,
+    "labels[]": undefined,
+    "project": undefined,
+    "search": undefined,
+    "status": undefined,
+  },
+  "useKeysetPagination": false,
+}
+`;

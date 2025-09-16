@@ -1,0 +1,523 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AI impact Dashboard utils generateDateRanges returns the expected date ranges in a leap year 1`] = `
+[
+  {
+    "end": 2019-10-31T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Oct 2019",
+    "start": 2019-10-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2019-11-30T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Nov 2019",
+    "start": 2019-11-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2019-12-31T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Dec 2019",
+    "start": 2019-12-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-01-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "Jan 2020",
+    "start": 2020-01-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-02-29T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Feb 2020",
+    "start": 2020-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-03-31T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Mar 2020",
+    "start": 2020-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateDateRanges returns the expected date ranges on the first of the month 1`] = `
+[
+  {
+    "end": 2021-02-28T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Feb 2021",
+    "start": 2021-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-03-31T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Mar 2021",
+    "start": 2021-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-04-30T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Apr 2021",
+    "start": 2021-04-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-05-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "May 2021",
+    "start": 2021-05-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-06-30T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Jun 2021",
+    "start": 2021-06-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-07-01T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Jul 2021",
+    "start": 2021-07-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateDateRanges returns the expected date ranges on the last of the month 1`] = `
+[
+  {
+    "end": 2020-10-31T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Oct 2020",
+    "start": 2020-10-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-11-30T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Nov 2020",
+    "start": 2020-11-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-12-31T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Dec 2020",
+    "start": 2020-12-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-01-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "Jan 2021",
+    "start": 2021-01-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-02-28T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Feb 2021",
+    "start": 2021-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-03-31T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Mar 2021",
+    "start": 2021-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateSkeletonTableData returns the skeleton based on the table fields 1`] = `
+[
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "contributor_count",
+      "value": "Contributor count",
+    },
+  },
+  {
+    "invertTrendColor": true,
+    "metric": {
+      "identifier": "vulnerability_critical",
+      "value": "Critical vulnerabilities over time",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "deployment_frequency",
+      "value": "Deployment frequency",
+    },
+  },
+  {
+    "invertTrendColor": true,
+    "metric": {
+      "identifier": "change_failure_rate",
+      "value": "Change failure rate",
+    },
+  },
+  {
+    "invertTrendColor": true,
+    "metric": {
+      "identifier": "cycle_time",
+      "value": "Cycle time",
+    },
+  },
+  {
+    "invertTrendColor": true,
+    "metric": {
+      "identifier": "lead_time",
+      "value": "Lead time",
+    },
+  },
+  {
+    "invertTrendColor": true,
+    "metric": {
+      "identifier": "median_time_to_merge",
+      "value": "Median time to merge",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "merge_request_throughput",
+      "value": "Merge request throughput",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "code_suggestions_usage_rate",
+      "value": "Code Suggestions: Usage",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "code_suggestions_acceptance_rate",
+      "value": "Code Suggestions: Acceptance rate",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "duo_chat_usage_rate",
+      "value": "Duo Chat: Usage",
+    },
+  },
+  {
+    "invertTrendColor": undefined,
+    "metric": {
+      "identifier": "duo_rca_usage_rate",
+      "value": "Duo RCA: Usage",
+    },
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateTableColumns returns the expected table fields in a leap year 1`] = `
+[
+  {
+    "key": "metric",
+    "label": "Metric",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2019-10-31T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Oct 2019",
+    "start": 2019-10-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2019-11-30T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Nov 2019",
+    "start": 2019-11-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2019-12-31T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Dec 2019",
+    "start": 2019-12-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-01-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "Jan 2020",
+    "start": 2020-01-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-02-29T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Feb 2020",
+    "start": 2020-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-03-31T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Mar 2020",
+    "start": 2020-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "description": "Past 6 Months",
+    "key": "change",
+    "label": "Change (%)",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2020-03-31T00:00:00.000Z,
+    "key": "chart",
+    "label": "Trend",
+    "start": 2019-10-01T00:00:00.000Z,
+    "tdClass": "!gl-py-2",
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateTableColumns returns the expected table fields on the first of the month 1`] = `
+[
+  {
+    "key": "metric",
+    "label": "Metric",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2021-02-28T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Feb 2021",
+    "start": 2021-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-03-31T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Mar 2021",
+    "start": 2021-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-04-30T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Apr 2021",
+    "start": 2021-04-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-05-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "May 2021",
+    "start": 2021-05-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-06-30T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Jun 2021",
+    "start": 2021-06-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-07-01T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Jul 2021",
+    "start": 2021-07-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "description": "Past 6 Months",
+    "key": "change",
+    "label": "Change (%)",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2021-07-01T00:00:00.000Z,
+    "key": "chart",
+    "label": "Trend",
+    "start": 2021-01-01T00:00:00.000Z,
+    "tdClass": "!gl-py-2",
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateTableColumns returns the expected table fields on the last of the month 1`] = `
+[
+  {
+    "key": "metric",
+    "label": "Metric",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2020-10-31T23:59:59.000Z,
+    "key": "5-months-ago",
+    "label": "Oct 2020",
+    "start": 2020-10-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-11-30T23:59:59.000Z,
+    "key": "4-months-ago",
+    "label": "Nov 2020",
+    "start": 2020-11-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2020-12-31T23:59:59.000Z,
+    "key": "3-months-ago",
+    "label": "Dec 2020",
+    "start": 2020-12-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-01-31T23:59:59.000Z,
+    "key": "2-months-ago",
+    "label": "Jan 2021",
+    "start": 2021-01-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-02-28T23:59:59.000Z,
+    "key": "1-months-ago",
+    "label": "Feb 2021",
+    "start": 2021-02-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "end": 2021-03-31T00:00:00.000Z,
+    "key": "this-month",
+    "label": "Mar 2021",
+    "start": 2021-03-01T00:00:00.000Z,
+    "thClass": "gl-w-1/10",
+  },
+  {
+    "description": "Past 6 Months",
+    "key": "change",
+    "label": "Change (%)",
+    "thClass": "gl-w-3/20",
+  },
+  {
+    "end": 2021-03-31T00:00:00.000Z,
+    "key": "chart",
+    "label": "Trend",
+    "start": 2020-10-01T00:00:00.000Z,
+    "tdClass": "!gl-py-2",
+    "thClass": "gl-w-1/10",
+  },
+]
+`;
+
+exports[`AI impact Dashboard utils generateTableRows returns the data formatted as a table row 1`] = `
+{
+  "change_failure_rate": {
+    "1-months-ago": {
+      "tooltip": undefined,
+      "value": "7.5%",
+    },
+    "2-months-ago": {
+      "tooltip": undefined,
+      "value": "0.0%",
+    },
+    "3-months-ago": {
+      "tooltip": undefined,
+      "value": "0.0%",
+    },
+    "4-months-ago": {
+      "tooltip": undefined,
+      "value": "5.6%",
+    },
+    "5-months-ago": {
+      "tooltip": undefined,
+      "value": "8.9%",
+    },
+    "change": {
+      "value": -0.15730337078651688,
+    },
+    "this-month": {
+      "tooltip": undefined,
+      "value": "4.0%",
+    },
+  },
+  "code_suggestions_usage_rate": {
+    "1-months-ago": {
+      "tooltip": "5/10",
+      "value": "50.0%",
+    },
+    "2-months-ago": {
+      "tooltip": "10/11",
+      "value": "90.9%",
+    },
+    "3-months-ago": {
+      "tooltip": "2/10",
+      "value": "20.0%",
+    },
+    "4-months-ago": {
+      "tooltip": "10/10",
+      "value": "100.0%",
+    },
+    "5-months-ago": {
+      "tooltip": "0/0",
+      "value": "0.0%",
+    },
+    "change": {
+      "tooltip": "Value can't be calculated due to division by zero.",
+      "value": "n/a",
+    },
+    "this-month": {
+      "tooltip": "8/9",
+      "value": "88.9%",
+    },
+  },
+  "deployment_frequency": {
+    "1-months-ago": {
+      "tooltip": undefined,
+      "value": "-",
+    },
+    "2-months-ago": {
+      "tooltip": undefined,
+      "value": "30.0/d",
+    },
+    "3-months-ago": {
+      "tooltip": undefined,
+      "value": "0.0/d",
+    },
+    "4-months-ago": {
+      "tooltip": undefined,
+      "value": "15.0/d",
+    },
+    "5-months-ago": {
+      "tooltip": undefined,
+      "value": "10.0/d",
+    },
+    "change": {
+      "tooltip": "Value can't be calculated due to insufficient data.",
+      "value": "n/a",
+    },
+    "this-month": {
+      "tooltip": undefined,
+      "value": "30.0/d",
+    },
+  },
+}
+`;
