@@ -1,0 +1,1 @@
+{"function":"mysqli_query","params":["UPDATE users SET first_name = 'Hack', last_name = 'Me Now' where user_id = 3"],"errno":-9999,"errstr":"We detect DDL or DML query"}

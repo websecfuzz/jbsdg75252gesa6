@@ -1,0 +1,53 @@
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=db
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mysql:8.4.0
+        COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    command: mysqld
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER_HOST: "%"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+      
+  dvwa:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM chialab/php:8.4-apache
+        COPY . /var/www/html/
+    container_name: dvwa
+    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+    ports:
+      - "8081:80"
+    depends_on:
+      db:
+        condition: service_healthy

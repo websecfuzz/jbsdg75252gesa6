@@ -1,0 +1,9 @@
+Multi-language LOC Report
+Directory scanned: /projects/fuzzing/SQLIFuzz/crawler_WUT/dvwa/
+
+Total number of files: 244
+
+Total JavaScript LOC (excluding blanks/comments): 169
+Total PHP LOC (excluding blanks/comments): 7299
+
+Grand Total LOC: 7468

