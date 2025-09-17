@@ -38,4 +38,4 @@ This repository contains the artefact accompanying our paper submission. It incl
   ```
 
 - The experiment runs the target web application inside a Docker container. Once the web application is ready, Schemathesis is launched.
-- The final results, including any detected BAC vulnerabilities, are saved in the final_result folder
+- The final results are saved in the final_result folder
