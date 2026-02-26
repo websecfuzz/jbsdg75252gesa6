@@ -12,6 +12,7 @@ services:
       - PYTHONUNBUFFERED=1
       - WUT_NAME=${WUT_NAME}
       - DB_CONTAINER_NAME=postgres
+      - HOST_NAME=${HOST_NAME}
     depends_on:
       - postgres
         

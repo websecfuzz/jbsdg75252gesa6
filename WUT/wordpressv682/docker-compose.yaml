@@ -1,0 +1,60 @@
+services:
+  dbproxy:
+    image: python:3.10-slim
+    container_name: proxy_python_app
+    volumes:
+      - ../../shared-data:/shared-data
+      - ../proxy:/proxy
+    command: python /proxy/sql_proxy.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WUT_NAME=${WUT_NAME}
+      - DB_CONTAINER_NAME=db
+      - HOST_NAME=${HOST_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import socket; s=socket.create_connection(('127.0.0.1',3306),2); s.close()"
+        ]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+      
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      WORDPRESS_DB_HOST: dbproxy
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    depends_on:
+      dbproxy:
+        condition: service_healthy
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080

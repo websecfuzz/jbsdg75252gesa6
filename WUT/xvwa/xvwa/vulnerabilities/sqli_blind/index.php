@@ -45,6 +45,22 @@
              </div>
 
             <div class="col-md-9">
+                <!-- <?php
+                    // $raw_post = file_get_contents('php://input');
+                    // echo "DEBUG INFO IN INDEX.PHP   <br>";
+                    // echo "<div style='background:#f0f0f0; padding:10px; margin:10px 0; border:1px solid #ccc;'>";
+                    // echo "<strong>Debug Info:</strong><br>";
+                    // echo "REQUEST_URI: " . htmlspecialchars($_SERVER['REQUEST_URI'] ?? 'not set') . "<br>";
+                    // echo "SCRIPT_NAME: " . htmlspecialchars($_SERVER['SCRIPT_NAME'] ?? 'not set') . "<br>";
+                    // echo "Request Method: " . ($_SERVER['REQUEST_METHOD'] ?? 'not set') . "<br>";
+                    // echo "Content-Type: " . htmlspecialchars($_SERVER['CONTENT_TYPE'] ?? 'not set') . "<br>";
+                    // echo "Content-Length: " . htmlspecialchars($_SERVER['CONTENT_LENGTH'] ?? 'not set') . "<br>";
+                    // echo "Raw POST body length: " . strlen($raw_post) . "<br>";
+                    // echo "Raw POST body: <pre>" . htmlspecialchars($raw_post) . "</pre>";
+                    // echo "GET data: <pre>" . htmlspecialchars(print_r($_GET, true)) . "</pre>";
+                    // echo "POST data: <pre>" . htmlspecialchars(print_r($_POST, true)) . "</pre>";
+                    // echo "</div>";
+                ?> -->
 
                <?php 
                     include('home.php');

@@ -1,0 +1,16 @@
+{
+    "defaults": {
+        "redis": {
+            "host": "redis",
+            "port": 6379,
+            "database": 0
+        },
+        "postgres": {
+            "host": "dbproxy",
+            "port": 5432,
+            "database": "nodebb",
+            "username": "nodebb",
+            "password": "nodebb"
+        }
+    }
+}

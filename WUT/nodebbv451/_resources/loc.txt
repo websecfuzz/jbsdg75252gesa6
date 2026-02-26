@@ -1,0 +1,10 @@
+Multi-language LOC Report
+Directory scanned: /projects/fuzzing/SQLIFuzz/crawler_WUT/nodebb/
+
+Total number of files: 5572
+
+Total JavaScript LOC (excluding blanks/comments): 109971
+Total CSS LOC (excluding blanks/comments): 256
+Total HTML LOC (excluding blanks/comments): 255
+
+Grand Total LOC: 110482

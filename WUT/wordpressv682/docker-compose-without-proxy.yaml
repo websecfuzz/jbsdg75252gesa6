@@ -1,0 +1,37 @@
+services:      
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+    networks:
+      default:
+        aliases:
+          - dbproxy
+      
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      WORDPRESS_DB_HOST: dbproxy
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    depends_on:
+      db:
+        condition: service_healthy
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080

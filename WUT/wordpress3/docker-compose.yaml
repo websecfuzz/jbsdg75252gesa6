@@ -10,6 +10,7 @@ services:
       - PYTHONUNBUFFERED=1
       - WUT_NAME=${WUT_NAME}
       - DB_CONTAINER_NAME=db
+      - HOST_NAME=${HOST_NAME}
     depends_on:
       - db
 
@@ -32,20 +33,19 @@ services:
       interval: 10s
       retries: 5
 
-  phpmyadmin:
-    image: phpmyadmin:5.2.1
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - "8801:80"
-    links:
-      - db:db
+      - 8801:8080
 
   web:
     build:
-      context: .
-      dockerfile_inline: |
-        FROM chialab/php:8.4-apache
-        COPY . /var/www/html/
-    container_name: dvwa
+      context: ../
+      dockerfile: Dockerfile.PHP81
+      args:
+        APP: wordpress3
+    container_name: web
     command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
     ports:
       - "8081:80"

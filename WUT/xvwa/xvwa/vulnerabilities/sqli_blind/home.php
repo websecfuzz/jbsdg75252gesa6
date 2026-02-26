@@ -43,6 +43,30 @@
                             echo "<div align=\"right\"> <button class=\"btn btn-default\" type=\"submit\">Submit</button></div>";
                             echo "</div> </form> </p>";
                             echo " </div>";
+                            
+                            // // Debug: Capture raw input FIRST before anything else reads it
+                            // $raw_post = file_get_contents('php://input');
+                            
+                            // // Debug: Log POST data
+                            // error_log("POST data: " . print_r($_POST, true));
+                            // error_log("Raw input: " . $raw_post);
+                            // error_log("Content-Type: " . ($_SERVER['CONTENT_TYPE'] ?? 'not set'));
+                            // error_log("REQUEST_URI: " . ($_SERVER['REQUEST_URI'] ?? 'not set'));
+
+                            // // Debug: Display POST data in HTML
+                            // echo "<!-- DEBUG INFO -->";
+                            // echo "<div style='background:#f0f0f0; padding:10px; margin:10px 0; border:1px solid #ccc;'>";
+                            // echo "<strong>Debug Info:</strong><br>";
+                            // echo "REQUEST_URI: " . htmlspecialchars($_SERVER['REQUEST_URI'] ?? 'not set') . "<br>";
+                            // echo "Request Method: " . ($_SERVER['REQUEST_METHOD'] ?? 'not set') . "<br>";
+                            // echo "Content-Type: " . htmlspecialchars($_SERVER['CONTENT_TYPE'] ?? 'not set') . "<br>";
+                            // echo "Content-Length: " . htmlspecialchars($_SERVER['CONTENT_LENGTH'] ?? 'not set') . "<br>";
+                            // echo "Raw POST body: <pre>" . htmlspecialchars($raw_post) . "</pre>";
+                            // echo "GET data: <pre>" . htmlspecialchars(print_r($_GET, true)) . "</pre>";
+                            // echo "POST data: <pre>" . htmlspecialchars(print_r($_POST, true)) . "</pre>";
+                            // echo "</div>";
+                            
+                            
                             $item = isset($_POST['item']) ? $_POST['item'] : '';
                             $search = isset($_POST['search']) ? $_POST['search'] : '';
                             $isSearch = false;
@@ -65,6 +89,15 @@
                                     $isSearch = true;
                                 }
                             }
+
+                            // else{
+                            //     echo "<br><ul class=\"featureList\">";
+                            //     echo "<li class=\"cross\">Please enter search criteria to search items.</li>";
+                            //     echo $item;
+                            //     echo $search;
+                            //     echo "</ul>";
+                            // }
+
                             if($isSearch){
                                 echo "<table>";
                                 while($rows = $result->fetch_assoc()){

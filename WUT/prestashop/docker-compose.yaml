@@ -10,6 +10,7 @@ services:
       - PYTHONUNBUFFERED=1
       - WUT_NAME=${WUT_NAME}
       - DB_CONTAINER_NAME=db
+      - HOST_NAME=${HOST_NAME}
     depends_on:
       - db
 
@@ -42,9 +43,11 @@ services:
     build:
       context: .
       dockerfile_inline: |
-        FROM chialab/php:8.4-apache
+        FROM chialab/php:8.1-apache
         COPY . /var/www/html/
-    container_name: dvwa
+        RUN chown -R www-data:www-data /var/www/html/var && chmod -R 775 /var/www/html/var
+        RUN rm -rf /var/www/html/var/cache/*
+    container_name: prestashop
     command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
     ports:
       - "8081:80"

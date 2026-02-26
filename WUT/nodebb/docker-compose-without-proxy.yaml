@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:        
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  nodebb:
+    build: .
+    # image: ghcr.io/nodebb/nodebb:latest
+    restart: unless-stopped
+    ports:
+      - '4567:4567' # comment this out if you don't want to expose NodeBB to the host, or change the first number to any port you want
+    volumes:
+       - ./:/test
+
+  postgres:
+    #image: postgres:17.4-alpine
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM postgres:17.4-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nodebb
+      POSTGRES_PASSWORD: nodebb
+      POSTGRES_DB: nodebb
+    networks:
+      default:
+        aliases:
+          - dbproxy
+
+  redis:
+    image: redis:7.4.3-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes', '--loglevel', 'warning']
+    # command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"] # uncomment if you want to use snapshotting instead of AOF
+    profiles:
+      - redis

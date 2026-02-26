@@ -25,11 +25,13 @@ import logging
 import argparse
 import os
 from typing import Dict, Tuple, List, Optional
+from collections import deque
 
 DB_CONTAINER_NAME = os.environ.get('DB_CONTAINER_NAME', "db")
 WUT_NAME = os.environ.get('WUT_NAME', "")
+HOST_NAME = os.environ.get('HOST_NAME', "")
 FOLDER_NAME = os.environ.get('FOLDER_NAME', "/shared-data")
-LOG_FILE = f'{FOLDER_NAME}/mysql_proxy_{WUT_NAME}.log'
+LOG_FILE = f'{FOLDER_NAME}/mysql_proxy_{WUT_NAME}{HOST_NAME}.log'
 
 # ---------- Logging setup ----------
 LOG = logging.getLogger("pgproxy")
@@ -74,19 +76,22 @@ def substitute_params(sql: str, params: List[Optional[str]]) -> str:
 class PGSession:
     """Holds per-connection state to reconstruct Extended Query executions."""
     def __init__(self) -> None:
-        # statement_name -> (sql, param_type_oids)
         self.statements: Dict[str, Tuple[str, List[int]]] = {}
-        # portal_name -> statement_name
         self.portals: Dict[str, str] = {}
         # whether this stream has turned TLS (opaque); if True, stop parsing
         self.tls_active: bool = False
         # for initial StartupMessage tracking
         self.seen_startup: bool = False
-        self.active_queries: Dict[Tuple[str, int], str] = {}
         
-        self.CommandComplete_queries: Dict[Tuple[str, int], str] = {}
-        self.BindComplete_queries: Dict[Tuple[str, int], str] = {}
-        self.ParseComplete_queries: Dict[Tuple[str, int], str] = {}
+        # FIFO queues to track pending operations (responses don't include stmt/portal names)
+        # Queue of (stmt_name, query_string) for Parse -> ParseComplete
+        self.pending_parses: deque = deque()
+        # Queue of (portal_name, query_string) for Bind -> BindComplete
+        self.pending_binds: deque = deque()
+        # Queue of (portal_name, query_string) for Execute -> CommandComplete
+        self.pending_executes: deque = deque()
+        # Simple Query (no name) tracked by addr
+        self.simple_queries: Dict[Tuple, str] = {}
 
     # ---- Client -> Server messages ----
     def parse_client_message(self, mtype: Optional[bytes], payload: bytes, addr) -> None:
@@ -98,20 +103,19 @@ class PGSession:
             if len(payload) >= 4:
                 code = int.from_bytes(payload[:4], "big")
                 if code == 80877103:  # SSLRequest magic
-                    # LOG.info(f"[{addr}] [C] SSLRequest → waiting for server response (S/N)")
                     pass
                 else:
                     self.seen_startup = True
-                    # LOG.info(f"[{addr}] [C] StartupMessage (protocol=%d)", code)
             return
 
         t = mtype
         if t == b"Q":  # Simple Query
             # payload: query\x00
             query = payload[:-1].decode(errors="replace") if payload and payload.endswith(b"\x00") else payload.decode(errors="replace")
-            # LOG.info(f"[{addr}] ### [Q] %s", query)
-            self.active_queries[addr] = f"### [Q] {query}"
-            self.CommandComplete_queries[addr] = f"### [Q] {query}"
+            sql_oneline = ' '.join(query.split())
+
+            LOG.info(f"[{addr}] ### {sql_oneline} *#*#Query")
+            self.simple_queries[addr] = f"### {sql_oneline}"
             ## We should wait for the response from **CommandComplete
         elif t == b"P":  # Parse
             # statement name\x00, query\x00, int16 nparams, int32[nparams] type OIDs
@@ -135,11 +139,13 @@ class PGSession:
                     oids.append(int.from_bytes(payload[pos:pos+4], "big"))
                     pos += 4
             self.statements[stmt_name] = (sql, oids)
-            # LOG.info(f"[{addr}] [P] Parse stmt='%s' sql=%s nparams=%d", stmt_name or '<unnamed>', sql, nparams)
-            # LOG.info(f"[{addr}] ### [P] {sql} [nparams:{nparams}]")
-            self.active_queries[addr] = f"### [P] {sql} [nparams:{nparams}]"
-            self.ParseComplete_queries[addr] = f"### [P] {sql} [nparams:{nparams}]"
-            ## We should wait for the response from **CommandComplete ---> **ParseComplete
+            # Normalize SQL: replace newlines and multiple spaces with single space
+            sql_oneline = ' '.join(sql.split())
+            # Log Parse immediately AND push to pending queue
+            stmt_key = stmt_name or '<unnamed>'
+            LOG.info(f"[{addr}] ### {sql_oneline} *#*#Parse[{stmt_key}]")
+            self.pending_parses.append((stmt_key, f"### {sql_oneline}"))
+            ## We should wait for the response from **ParseComplete
         elif t == b"B":  # Bind
             # portal\x00, statement\x00, int16 nFormatCodes, int16[] fmts,
             # int16 nparams, for each: int32 len (-1 null), bytes,
@@ -196,12 +202,11 @@ class PGSession:
             # Try to reconstruct SQL now (even though execution might happen later)
             sql, _oids = self.statements.get(stmt, ("<unknown>", []))
             filled = substitute_params(sql, vals)
-            # LOG.info(f"[{addr}] [B] Bind portal='%s' stmt='%s' params=%s", portal or '<unnamed>', stmt or '<unnamed>', vals)
-            # LOG.info(f"[{addr}] ### [B] {vals}")
-            self.active_queries[addr] = f"### [B] {vals}"
-            self.BindComplete_queries[addr] = f"### [B] {vals}"
+            portal_key = portal or '<unnamed>'
+            stmt_key = stmt or '<unnamed>'
+            LOG.info(f"[{addr}] ### {vals} *#*#Bind[stmt={stmt_key},portal={portal_key}]")
+            self.pending_binds.append((portal_key, f"### {vals}"))
             ## We should wait for the response from **BindComplete
-            # LOG.info(f"[{addr}] [B→SQL] %s", filled)
         elif t == b"E":  # Execute
             # portal\x00, int32 max-rows
             pos = 0
@@ -211,11 +216,16 @@ class PGSession:
             max_rows = int.from_bytes(payload[pos:pos+4], "big") if pos + 4 <= len(payload) else 0
             stmt = self.portals.get(portal, '')
             sql, _ = self.statements.get(stmt, ("<unknown>", []))
-            # LOG.info(f"[{addr}] [E] Execute portal='%s' max_rows=%d stmt='%s' sql=%s", portal or '<unnamed>', max_rows, stmt or '<unnamed>', sql)
-            # LOG.info(f"[{addr}] ### [E] Execute portal='%s' max_rows=%d stmt='%s'", portal or '<unnamed>', max_rows, stmt or '<unnamed>')
-            self.active_queries[addr] = f"### [E] Execute portal='{portal or '<unnamed>'}' max_rows={max_rows} stmt='{stmt or '<unnamed>'}'"
-            self.CommandComplete_queries[addr] = f"### [E] Execute portal='{portal or '<unnamed>'}' max_rows={max_rows} stmt='{stmt or '<unnamed>'}'"
-            ## We should wait for the response from **ParseComplete ---> **CommandComplete
+            portal_key = portal or '<unnamed>'
+            stmt_key = stmt or '<unnamed>'
+            # Find the query from the most recent Bind for this portal
+            bound_query = f"### executedstmt='{stmt_key}'"
+            for p_name, p_query in reversed(self.pending_binds):
+                if p_name == portal_key:
+                    bound_query = p_query
+                    break
+            self.pending_executes.append((portal_key, bound_query))
+            ## We should wait for the response from **CommandComplete
         elif t == b"C":  # Close
             # kind('S' or 'P'), name\x00
             kind = chr(payload[0]) if payload else '?'
@@ -224,12 +234,9 @@ class PGSession:
                 self.statements.pop(name, None)
             elif kind == 'P':
                 self.portals.pop(name, None)
-            # LOG.info(f"[{addr}] [C] Close kind=%s name='%s'", kind, name or '<unnamed>')
         elif t == b"S":  # Sync
-            # LOG.info(f"[{addr}] [S] Sync")
             pass
         elif t == b"D":  # Describe
-            # LOG.info(f"[{addr}] [D] Describe kind=%s name=%s", chr(payload[0]) if payload else '?', payload[1:payload.find(b"\x00",1)].decode(errors="replace") if len(payload)>1 else '')
             pass
         else:
             # Other front-end types: F (FunctionCall), X (Terminate), etc.
@@ -237,7 +244,7 @@ class PGSession:
                 ch = t.decode()
             except Exception:
                 ch = str(t)
-            LOG.debug(f"[{addr}] ### [C] Unhandled type %s len=%d", ch, len(payload))
+            LOG.debug(f"[{addr}] ### Unhandledtype %s", ch)
 
     # ---- Server -> Client messages ----
     def parse_server_message(self, mtype: Optional[bytes], payload: bytes, addr) -> None:
@@ -252,7 +259,6 @@ class PGSession:
             pass
         elif t == b"E":  # ErrorResponse
             # # payload is sequence of fields code + cstring; ends with 0x00
-            # LOG.warning(f"[{addr}] ### [**ERROR] server error (len=%d)", len(payload))
 
             error_fields = {}
             i = 0
@@ -271,18 +277,31 @@ class PGSession:
             severity = error_fields.get(b'S', 'UNKNOWN')
             code = error_fields.get(b'C', '?????')
             message = error_fields.get(b'M', '[no message]')
+            message_oneline = ' '.join(message.split())
             
-            query = self.active_queries.get(addr, '[unknown query]')
+            # Error can occur during Parse, Bind, or Execute - check all pending queues
+            query = '[unknown query]'
+            context = ''
+            if self.pending_parses:
+                stmt_name, query = self.pending_parses.popleft()
+                context = f'Parse[{stmt_name}]'
+            elif self.pending_binds:
+                portal_name, query = self.pending_binds.popleft()
+                context = f'Bind[{portal_name}]'
+            elif self.pending_executes:
+                portal_name, query = self.pending_executes.popleft()
+                context = f'Execute[{portal_name}]'
+            elif addr in self.simple_queries:
+                query = self.simple_queries.pop(addr)
+                context = 'SimpleQuery'
+            
             LOG.warning(
-                f"[{addr}] {query} **ERROR server error (len=%d) Severity=%s Code=%s Message=%s",
-                len(payload), severity, code, message
+                f"[{addr}] {query} *#*#error[{context}] Severity={severity} Code={code} Message={message_oneline}"
             )
-            self.active_queries.pop(addr, None)
 
         elif t == b"R":  # Authentication
             if len(payload) >= 4:
                 atype = int.from_bytes(payload[:4], "big")
-                # LOG.info(f"[{addr}] [R] Authentication type=%d", atype)
         elif t == b"S":  # ParameterStatus
             # key\x00 value\x00
             pass
@@ -291,21 +310,18 @@ class PGSession:
         elif t == b"Z":  # ReadyForQuery
             # status byte
             status = chr(payload[0]) if payload else '?'
-            # LOG.info(f"[{addr}] [Z] ReadyForQuery tx_status=%s", status)
         elif t == b"1":  # ParseComplete
-            # query = self.active_queries.get(addr, '[unknown query]')
-            query = self.ParseComplete_queries.get(addr, '[unknown query]')
-            LOG.info(f"[{addr}] {query} **ParseComplete")
-            self.active_queries.pop(addr, None)
-            self.ParseComplete_queries.pop(addr, None)
-            # pass
+            if self.pending_parses:
+                stmt_name, query = self.pending_parses.popleft()
+                LOG.info(f"[{addr}] {query} *#*#ParseComplete[{stmt_name}]")
+            else:
+                LOG.info(f"[{addr}] ### [unknown] *#*#ParseComplete")
         elif t == b"2":  # BindComplete
-            # query = self.active_queries.get(addr, '[unknown query]')
-            query = self.BindComplete_queries.get(addr, '[unknown query]')
-            LOG.info(f"[{addr}] {query} **BindComplete")
-            self.active_queries.pop(addr, None)
-            self.BindComplete_queries.pop(addr, None)
-            # pass
+            if self.pending_binds:
+                portal_name, query = self.pending_binds.popleft()
+                LOG.info(f"[{addr}] {query} *#*#BindComplete[{portal_name}]")
+            else:
+                LOG.info(f"[{addr}] ### [unknown] *#*#BindComplete")
         elif t == b"3":  # CloseComplete
             pass
         elif t == b"t":  # ParameterDescription
@@ -321,18 +337,21 @@ class PGSession:
                 tag = payload[:-1].decode()
             except Exception:
                 tag = payload.decode(errors="replace")
-            # LOG.info(f"[{addr}] [C] CommandComplete %s", tag)
-            # query = self.active_queries.get(addr, '[unknown query]')
-            query = self.CommandComplete_queries.get(addr, '[unknown query]')
-            LOG.info(f"[{addr}] {query} **CommandComplete")
-            self.active_queries.pop(addr, None)
-            self.CommandComplete_queries.pop(addr, None)
+            # Check if this is from Extended Query (Execute) or Simple Query
+            if self.pending_executes:
+                portal_name, query = self.pending_executes.popleft()
+                LOG.info(f"[{addr}] {query} *#*#CommandComplete[{portal_name}]")
+            elif addr in self.simple_queries:
+                query = self.simple_queries.pop(addr)
+                LOG.info(f"[{addr}] {query} *#*#CommandComplete[SimpleQuery]")
+            else:
+                LOG.info(f"[{addr}] ### [unknown] *#*#CommandComplete")
         else:
             try:
                 ch = t.decode()
             except Exception:
                 ch = str(t)
-            LOG.debug(f"[{addr}] ### [S] Unhandled type %s len=%d", ch, len(payload))
+            LOG.debug(f"[{addr}] ### Unhandledtype %s", ch)
 
 
 # ---------- Framing / Relay ----------
@@ -359,9 +378,6 @@ async def read_message(reader: asyncio.StreamReader, *, client_side: bool, sessi
         # Mark TLS if 'S'
         if mtype == b"S":
             session.tls_active = True
-        #     LOG.warning("[!] Server accepted SSL/TLS. Stream becomes opaque — parsing disabled.")
-        # else:
-        #     LOG.info("[S] Server refused SSL/TLS (sslmode=disable).")
         # After SSL response, the client will either switch to TLS (opaque) or send Startup again.
         return mtype, b""
 
@@ -395,7 +411,6 @@ async def relay_pair(client_reader: asyncio.StreamReader, client_writer: asyncio
             pass
         except Exception as e:
             print("Relay error [client->server]: %s", e)
-            # LOG.error("Relay error [client->server]: %s", e)
         finally:
             try:
                 server_writer.close(); await server_writer.wait_closed()
@@ -424,7 +439,6 @@ async def relay_pair(client_reader: asyncio.StreamReader, client_writer: asyncio
             pass
         except Exception as e:
             print("Relay error [server->client]: %s", e)
-            # LOG.error("Relay error [server->client]: %s", e)
         finally:
             try:
                 client_writer.close(); await client_writer.wait_closed()
@@ -444,7 +458,6 @@ async def main():
     thost, tport = args.target.split(":"); tport = int(tport)
 
     server = await asyncio.start_server(lambda r, w: relay_pair(r, w, thost, tport), lhost, lport)
-    # LOG.info("Listening on %s:%d → forwarding to %s:%d", lhost, lport, thost, tport)
     async with server:
         await server.serve_forever()
 

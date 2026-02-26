@@ -52,7 +52,7 @@ RUN a2ensite web-8081.conf
 RUN a2enmod rewrite
 
 #COPY proxy /proxy
-
+COPY tracelib.c /tracelib.c
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 0755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

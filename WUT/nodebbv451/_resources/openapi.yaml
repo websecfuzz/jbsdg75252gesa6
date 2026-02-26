@@ -1,0 +1,574 @@
+openapi: 3.0.0
+info:
+  title: NodeBB Write API
+  description: >-
+    # Overview
+
+    The following document outlines every route exposed by the NodeBB Write API.
+    Since NodeBB v1.15.0, NodeBB has used these routes to make changes to the database (e.g. creating new posts, editing user profiles, etc.)
+
+    We invite you to build external integrations with NodeBB using this document as a guide.
+
+    # History
+
+    Up until v1.15.0, NodeBB utilised the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol to communicate with the backend.
+    However, it was decided in early 2020 that this usage of WebSocket &mdash; while functional &mdash; led to occasional wheel reinvention and disregarded an otherwise fully-featured technology (that is, REST).
+
+    Years prior to this determination, many users of NodeBB had asked for a RESTful API to call against NodeBB, which led to the creation of [`nodebb-plugin-write-api`](https://github.com/NodeBB/nodebb-plugin-write-api).
+    In tandem with the above decision, the Write API was merged into NodeBB core in late 2020.
+
+    v3 of the Write API (this document) supercedes v2 of the Write API plugin, and is currently maintained.
+
+    # Authentication
+
+    Similarly to the Read API, the Write API support both session-based (cookie) and Bearer token authentication.
+    Please see the ["Authentication" section under the Read API](../read/#section/Overview/Authentication) for more information on how to authenticate against this API in order to make calls.
+  version: 3.0.0
+  contact:
+    email: support@nodebb.org
+  license:
+    name: GPL-3.0
+servers:
+  - url: /api/v3
+tags:
+  - name: utilities
+    description: Utility calls to test Write API functionality
+  - name: users
+    description: Account related calls (create, modify, delete, etc.)
+  - name: groups
+    description: Calls related to user groups
+  - name: categories
+    description: Administrative calls to manage categories
+  - name: topics
+    description: Topic-based calls (create, modify, delete, etc.)
+  - name: posts
+    description: Individual post-related calls (create, modify, delete, etc.)
+  - name: chats
+    description: Calls related to the user private messaging system
+  - name: admin
+    description: Administrative calls
+  - name: files
+    description: File upload routes
+paths:
+  /ping:
+    $ref: 'write/ping.yaml'
+  /utilities/login:
+    $ref: 'write/login.yaml'
+  /users/:
+    $ref: 'write/users.yaml'
+  /users/{uid}:
+    $ref: 'write/users/uid.yaml'
+  /users/{uid}/picture:
+    $ref: 'write/users/uid/picture.yaml'
+  /users/{uid}/content:
+    $ref: 'write/users/uid/content.yaml'
+  /users/{uid}/account:
+    $ref: 'write/users/uid/account.yaml'
+  /users/{uid}/status:
+    $ref: 'write/users/uid/status.yaml'
+  /users/{uid}/status/{status}:
+    $ref: 'write/users/uid/status/status.yaml'
+  /users/{uid}/chat:
+    $ref: 'write/users/uid/chat.yaml'
+  /users/{uid}/settings:
+    $ref: 'write/users/uid/settings.yaml'
+  /users/{uid}/password:
+    $ref: 'write/users/uid/password.yaml'
+  /users/{uid}/follow:
+    $ref: 'write/users/uid/follow.yaml'
+  /users/{uid}/ban:
+    $ref: 'write/users/uid/ban.yaml'
+  /users/{uid}/mute:
+    $ref: 'write/users/uid/mute.yaml'
+  /users/{uid}/tokens:
+    $ref: 'write/users/uid/tokens.yaml'
+  /users/{uid}/tokens/{token}:
+    $ref: 'write/users/uid/tokens/token.yaml'
+  /users/{uid}/sessions/{uuid}:
+    $ref: 'write/users/uid/sessions/uuid.yaml'
+  /users/{uid}/invites:
+    $ref: 'write/users/uid/invites.yaml'
+  /users/{uid}/invites/groups:
+    $ref: 'write/users/uid/invites/groups.yaml'
+  /users/{uid}/emails:
+    $ref: 'write/users/uid/emails.yaml'
+  /users/{uid}/emails/{email}:
+    $ref: 'write/users/uid/emails/email.yaml'
+  /users/{uid}/emails/{email}/confirm:
+    $ref: 'write/users/uid/emails/email/confirm.yaml'
+  /users/{uid}/exports/{type}:
+    $ref: 'write/users/uid/exports/type.yaml'
+  /groups/:
+    $ref: 'write/groups.yaml'
+  /groups/{slug}:
+    $ref: 'write/groups/slug.yaml'
+  /groups/{slug}/members:
+    $ref: 'write/groups/slug/members.yaml'
+  /groups/{slug}/membership/{uid}:
+    $ref: 'write/groups/slug/membership/uid.yaml'
+  /groups/{slug}/ownership/{uid}:
+    $ref: 'write/groups/slug/ownership/uid.yaml'
+  /groups/{slug}/pending:
+    $ref: 'write/groups/slug/pending.yaml'
+  /groups/{slug}/pending/{uid}:
+    $ref: 'write/groups/slug/pending/uid.yaml'
+  /groups/{slug}/invites:
+    $ref: 'write/groups/slug/invites.yaml'
+  /groups/{slug}/invites/{uid}:
+    $ref: 'write/groups/slug/invites/uid.yaml'
+  /categories/:
+    $ref: 'write/categories.yaml'
+  /categories/{cid}:
+    $ref: 'write/categories/cid.yaml'
+  /categories/{cid}/count:
+    $ref: 'write/categories/cid/count.yaml'
+  /categories/{cid}/posts:
+    $ref: 'write/categories/cid/posts.yaml'
+  /categories/{cid}/children:
+    $ref: 'write/categories/cid/children.yaml'
+  /categories/{cid}/topics:
+    $ref: 'write/categories/cid/topics.yaml'
+  /categories/{cid}/watch:
+    $ref: 'write/categories/cid/watch.yaml'
+  /categories/{cid}/privileges:
+    $ref: 'write/categories/cid/privileges.yaml'
+  /categories/{cid}/privileges/{privilege}:
+    $ref: 'write/categories/cid/privileges/privilege.yaml'
+  /categories/{cid}/moderator/{uid}:
+    $ref: 'write/categories/cid/moderator/uid.yaml'
+  /categories/{cid}/follow:
+    $ref: 'write/categories/cid/follow.yaml'
+  /topics/:
+    $ref: 'write/topics.yaml'
+  /topics/{tid}:
+    $ref: 'write/topics/tid.yaml'
+  /topics/{tid}/state:
+    $ref: 'write/topics/tid/state.yaml'
+  /topics/{tid}/lock:
+    $ref: 'write/topics/tid/lock.yaml'
+  /topics/{tid}/pin:
+    $ref: 'write/topics/tid/pin.yaml'
+  /topics/{tid}/follow:
+    $ref: 'write/topics/tid/follow.yaml'
+  /topics/{tid}/ignore:
+    $ref: 'write/topics/tid/ignore.yaml'
+  /topics/{tid}/tags:
+    $ref: 'write/topics/tid/tags.yaml'
+  /topics/{tid}/thumbs:
+    $ref: 'write/topics/tid/thumbs.yaml'
+  /topics/{tid}/thumbs/order:
+    $ref: 'write/topics/tid/thumbs/order.yaml'
+  /topics/{tid}/events:
+    $ref: 'write/topics/tid/events.yaml'
+  /topics/{tid}/events/{eventId}:
+    $ref: 'write/topics/tid/events/eventId.yaml'
+  /topics/{tid}/read:
+    $ref: 'write/topics/tid/read.yaml'
+  /topics/{tid}/bump:
+    $ref: 'write/topics/tid/bump.yaml'
+  /topics/{tid}/move:
+    $ref: 'write/topics/tid/move.yaml'
+  /tags/{tag}/follow:
+    $ref: 'write/tags/tag/follow.yaml'
+  /posts/{pid}:
+    $ref: 'write/posts/pid.yaml'
+  /posts/{pid}/index:
+    $ref: 'write/posts/pid/index.yaml'
+  /posts/{pid}/raw:
+    $ref: 'write/posts/pid/raw.yaml'
+  /posts/{pid}/summary:
+    $ref: 'write/posts/pid/summary.yaml'
+  /posts/{pid}/state:
+    $ref: 'write/posts/pid/state.yaml'
+  /posts/{pid}/move:
+    $ref: 'write/posts/pid/move.yaml'
+  /posts/{pid}/vote:
+    $ref: 'write/posts/pid/vote.yaml'
+  /posts/{pid}/voters:
+    $ref: 'write/posts/pid/voters.yaml'
+  /posts/{pid}/upvoters:
+    $ref: 'write/posts/pid/upvoters.yaml'
+  /posts/{pid}/announcers:
+    $ref: 'write/posts/pid/announcers.yaml'
+  /posts/{pid}/announcers/tooltip:
+    $ref: 'write/posts/pid/announcers-tooltip.yaml'
+  /posts/{pid}/bookmark:
+    $ref: 'write/posts/pid/bookmark.yaml'
+  /posts/{pid}/diffs:
+    $ref: 'write/posts/pid/diffs.yaml'
+  /posts/{pid}/diffs/{since}:
+    $ref: 'write/posts/pid/diffs/since.yaml'
+  /posts/{pid}/diffs/{timestamp}:
+    $ref: 'write/posts/pid/diffs/timestamp.yaml'
+  /posts/{pid}/replies:
+    $ref: 'write/posts/pid/replies.yaml'
+  /chats/:
+    $ref: 'write/chats.yaml'
+  /chats/unread:
+    $ref: 'write/chats/unread.yaml'
+  /chats/sort:
+    $ref: 'write/chats/sort.yaml'
+  /chats/{roomId}:
+    $ref: 'write/chats/roomId.yaml'
+  /chats/{roomId}/state:
+    $ref: 'write/chats/roomId/state.yaml'
+  /chats/{roomId}/watch:
+    $ref: 'write/chats/roomId/watch.yaml'
+  /chats/{roomId}/typing:
+    $ref: 'write/chats/roomId/typing.yaml'
+  /chats/{roomId}/users:
+    $ref: 'write/chats/roomId/users.yaml'
+  /chats/{roomId}/users/{uid}:
+    $ref: 'write/chats/roomId/users/uid.yaml'
+  /chats/{roomId}/owners/{uid}:
+    $ref: 'write/chats/roomId/owners/uid.yaml'
+  /chats/{roomId}/messages:
+    $ref: 'write/chats/roomId/messages.yaml'
+  /chats/{roomId}/messages/pinned:
+    $ref: 'write/chats/roomId/messages/pinned.yaml'
+  /chats/{roomId}/messages/{mid}:
+    $ref: 'write/chats/roomId/messages/mid.yaml'
+  /chats/{roomId}/messages/{mid}/pin:
+    $ref: 'write/chats/roomId/messages/mid/pin.yaml'
+  /chats/{roomId}/messages/{mid}/raw:
+    $ref: 'write/chats/roomId/messages/mid/raw.yaml'
+  /chats/{roomId}/messages/{mid}/ip:
+    $ref: 'write/chats/roomId/messages/mid/ip.yaml'
+  /flags/:
+    $ref: 'write/flags.yaml'
+  /flags/{flagId}:
+    $ref: 'write/flags/flagId.yaml'
+  /flags/{flagId}/report:
+    $ref: 'write/flags/flagId/report.yaml'
+  /flags/{flagId}/notes:
+    $ref: 'write/flags/flagId/notes.yaml'
+  /flags/{flagId}/notes/{datetime}:
+    $ref: 'write/flags/flagId/notes/datetime.yaml'
+  /search/categories:
+    $ref: 'write/search/categories.yaml'
+  /search/chats/{roomId}/users:
+    $ref: 'write/search/chats/roomId/users.yaml'
+  /search/chats/{roomId}/messages:
+    $ref: 'write/search/chats/roomId/messages.yaml'
+  /admin/settings/{setting}:
+    $ref: 'write/admin/settings/setting.yaml'
+  /admin/analytics:
+    $ref: 'write/admin/analytics.yaml'
+  /admin/analytics/{set}:
+    $ref: 'write/admin/analytics/set.yaml'
+  /admin/tokens:
+    $ref: 'write/admin/tokens.yaml'
+  /admin/tokens/{token}:
+    $ref: 'write/admin/tokens/token.yaml'
+  /admin/tokens/{token}/roll:
+    $ref: 'write/admin/tokens/token/roll.yaml'
+  /admin/chats/{roomId}:
+    $ref: 'write/admin/chats/roomId.yaml'
+  /admin/groups:
+    $ref: 'write/admin/groups.yaml'
+  /files/:
+    $ref: 'write/files.yaml'
+  /files/folder:
+    $ref: 'write/files/folder.yaml'
+  /sping:
+    $ref: 'read/sping.yaml'
+  /ping:
+    $ref: 'read/ping.yaml'
+  /api/:
+    $ref: 'read/index.yaml'
+  /api/admin:
+    $ref: 'read/admin.yaml'
+  /api/admin/dashboard:
+    $ref: 'read/admin/dashboard.yaml'
+  /api/admin/dashboard/logins:
+    $ref: 'read/admin/dashboard/logins.yaml'
+  /api/admin/dashboard/users:
+    $ref: 'read/admin/dashboard/users.yaml'
+  /api/admin/dashboard/topics:
+    $ref: 'read/admin/dashboard/topics.yaml'
+  /api/admin/dashboard/searches:
+    $ref: 'read/admin/dashboard/searches.yaml'
+  "/api/admin/settings/general":
+    $ref: 'read/admin/settings/general.yaml'
+  /api/admin/settings/navigation:
+    $ref: 'read/admin/settings/navigation.yaml'
+  /api/admin/settings/user:
+    $ref: 'read/admin/settings/user.yaml'
+  /api/admin/settings/reputation:
+    $ref: 'read/admin/settings/reputation.yaml'
+  /api/admin/settings/group:
+    $ref: 'read/admin/settings/group.yaml'
+  /api/admin/settings/tags:
+    $ref: 'read/admin/settings/tags.yaml'
+  /api/admin/settings/post:
+    $ref: 'read/admin/settings/post.yaml'
+  /api/admin/settings/activitypub:
+    $ref: 'read/admin/settings/activitypub.yaml'
+  /api/admin/settings/uploads:
+    $ref: 'read/admin/settings/uploads.yaml'
+  /api/admin/settings/email:
+    $ref: 'read/admin/settings/email.yaml'
+  /api/admin/settings/chat:
+    $ref: 'read/admin/settings/chat.yaml'
+  /api/admin/settings/pagination:
+    $ref: 'read/admin/settings/pagination.yaml'
+  /api/admin/settings/notifications:
+    $ref: 'read/admin/settings/notifications.yaml'
+  /api/admin/settings/api:
+    $ref: 'read/admin/settings/api.yaml'
+  /api/admin/settings/cookies:
+    $ref: 'read/admin/settings/cookies.yaml'
+  /api/admin/settings/web-crawler:
+    $ref: 'read/admin/settings/web-crawler.yaml'
+  /api/admin/settings/advanced:
+    $ref: 'read/admin/settings/advanced.yaml'
+  /api/admin/manage/categories:
+    $ref: 'read/admin/manage/categories.yaml'
+  "/api/admin/manage/categories/{category_id}":
+    $ref: 'read/admin/manage/categories/category_id.yaml'
+  "/api/admin/manage/categories/{category_id}/analytics":
+    $ref: 'read/admin/manage/categories/category_id/analytics.yaml'
+  "/api/admin/manage/categories/{category_id}/federation":
+    $ref: 'read/admin/manage/categories/category_id/federation.yaml'
+  "/api/admin/manage/privileges/{cid}":
+    $ref: 'read/admin/manage/privileges/cid.yaml'
+  /api/admin/manage/tags:
+    $ref: 'read/admin/manage/tags.yaml'
+  /api/admin/manage/users:
+    $ref: 'read/admin/manage/users.yaml'
+  /api/admin/manage/users/custom-fields:
+    $ref: 'read/admin/manage/users/custom-fields.yaml'
+  /api/admin/manage/registration:
+    $ref: 'read/admin/manage/registration.yaml'
+  /api/admin/manage/admins-mods:
+    $ref: 'read/admin/manage/admins-mods.yaml'
+  /api/admin/manage/groups:
+    $ref: 'read/admin/manage/groups.yaml'
+  "/api/admin/manage/groups/{slug}":
+    $ref: 'read/admin/manage/groups/slug.yaml'
+  /api/admin/manage/uploads:
+    $ref: 'read/admin/manage/uploads.yaml'
+  /api/admin/manage/digest:
+    $ref: 'read/admin/manage/digest.yaml'
+  "/api/admin/appearance/themes":
+    $ref: 'read/admin/appearance/themes.yaml'
+  "/api/admin/appearance/skins":
+    $ref: 'read/admin/appearance/skins.yaml'
+  "/api/admin/appearance/customise":
+    $ref: 'read/admin/appearance/customise.yaml'
+  /api/admin/extend/plugins:
+    $ref: 'read/admin/extend/plugins.yaml'
+  /api/admin/extend/widgets:
+    $ref: 'read/admin/extend/widgets.yaml'
+  /api/admin/extend/rewards:
+    $ref: 'read/admin/extend/rewards.yaml'
+  /api/admin/advanced/database:
+    $ref: 'read/admin/advanced/database.yaml'
+  /api/admin/advanced/events:
+    $ref: 'read/admin/advanced/events.yaml'
+  /api/admin/advanced/hooks:
+    $ref: 'read/admin/advanced/hooks.yaml'
+  /api/admin/advanced/logs:
+    $ref: 'read/admin/advanced/logs.yaml'
+  /api/admin/advanced/errors:
+    $ref: 'read/admin/advanced/errors.yaml'
+  /api/admin/advanced/errors/export:
+    $ref: 'read/admin/advanced/errors/export.yaml'
+  /api/admin/advanced/cache:
+    $ref: 'read/admin/advanced/cache.yaml'
+  /api/admin/advanced/cache/dump:
+    $ref: 'read/admin/advanced/cache/dump.yaml'
+  /api/admin/development/logger:
+    $ref: 'read/admin/development/logger.yaml'
+  /api/admin/development/info:
+    $ref: 'read/admin/development/info.yaml'
+  /api/admin/users/csv:
+    $ref: 'read/admin/users/csv.yaml'
+  /api/admin/groups/{groupname}/csv:
+    $ref: 'read/admin/groups/groupname/csv.yaml'
+  /api/admin/analytics:
+    $ref: 'read/admin/analytics.yaml'
+  /api/admin/category/uploadpicture:
+    $ref: 'read/admin/category/uploadpicture.yaml'
+  /api/admin/uploadfavicon:
+    $ref: 'read/admin/uploadfavicon.yaml'
+  /api/admin/uploadTouchIcon:
+    $ref: 'read/admin/uploadTouchIcon.yaml'
+  /api/admin/uploadMaskableIcon:
+    $ref: 'read/admin/uploadMaskableIcon.yaml'
+  /api/admin/uploadlogo:
+    $ref: 'read/admin/uploadlogo.yaml'
+  /api/admin/uploadOgImage:
+    $ref: 'read/admin/uploadOgImage.yaml'
+  /api/admin/upload/file:
+    $ref: 'read/admin/upload/file.yaml'
+  /api/admin/uploadDefaultAvatar:
+    $ref: 'read/admin/uploadDefaultAvatar.yaml'
+  /api/admin/config:
+    $ref: 'read/admin/config.yaml'
+  /api/config:
+    $ref: 'read/config.yaml'
+  /api/users:
+    $ref: 'read/users.yaml'
+  "/api/user/uid/{uid}":
+    $ref: 'read/user/uid/uid.yaml'
+  "/api/user/username/{username}":
+    $ref: 'read/user/username/username.yaml'
+  "/api/user/email/{email}":
+    $ref: 'read/user/email/email.yaml'
+  /api/categories:
+    $ref: 'read/categories.yaml'
+  "/api/categories/{cid}/moderators":
+    $ref: 'read/categories/cid/moderators.yaml'
+  "/api/topic/{topic_id}/{slug}":
+    $ref: 'read/topic/topic_id.yaml'
+  "/api/topic/{topic_id}/{slug}/{post_index}":
+    $ref: 'read/topic/topic_id.yaml'
+  /api/recent:
+    $ref: 'read/recent.yaml'
+  "/api/recent/posts/{term}":
+    $ref: 'read/recent/posts/term.yaml'
+  /api/unread:
+    $ref: 'read/unread.yaml'
+  /api/unread/total:
+    $ref: 'read/unread/total.yaml'
+  "/api/topic/teaser/{topic_id}":
+    $ref: 'read/topic/teaser/topic_id.yaml'
+  "/api/topic/pagination/{topic_id}":
+    $ref: 'read/topic/pagination/topic_id.yaml'
+  /api/post/upload:
+    $ref: 'read/post/upload.yaml'
+  /api/topic/thumb/upload:
+    $ref: 'read/topic/thumb/upload.yaml'
+  /api/login:
+    $ref: 'read/login.yaml'
+  /api/register:
+    $ref: 'read/register.yaml'
+  /api/register/complete:
+    $ref: 'read/register/complete.yaml'
+  "/api/confirm/{code}":
+    $ref: 'read/confirm/code.yaml'
+  /api/tos:
+    $ref: 'read/tos.yaml'
+  /api/search:
+    $ref: 'read/search.yaml'
+  "/api/reset":
+    $ref: 'read/reset.yaml'
+  "/api/reset/{code}":
+    $ref: 'read/reset/code.yaml'
+  "/api/email/unsubscribe/{token}":
+    $ref: 'read/email/unsubscribe/token.yaml'
+  "/api/post/{pid}":
+    $ref: 'read/post/pid.yaml'
+  /api/flags:
+    $ref: 'read/flags.yaml'
+  "/api/flags/{flagId}":
+    $ref: 'read/flags/flagId.yaml'
+  /api/post-queue:
+    $ref: 'read/post-queue.yaml'
+  "/api/post-queue/{id}":
+    $ref: 'read/post-queue.yaml'
+  /api/ip-blacklist:
+    $ref: 'read/ip-blacklist.yaml'
+  /api/registration-queue:
+    $ref: 'read/registration-queue.yaml'
+  /api/tags:
+    $ref: 'read/tags.yaml'
+  "/api/tags/{tag}":
+    $ref: 'read/tags/tag.yaml'
+  /api/popular:
+    $ref: 'read/popular.yaml'
+  /api/top:
+    $ref: 'read/top.yaml'
+  "/api/category/{category_id}/{slug}":
+    $ref: 'read/category/category_id.yaml'
+  "/api/category/{category_id}/{slug}/{topic_index}":
+    $ref: 'read/category/category_id.yaml'
+  /api/self:
+    $ref: 'read/self.yaml'
+  /api/me:
+    $ref: 'read/me.yaml'
+  /api/me/*:
+    $ref: 'read/me.yaml'
+  "/api/uid/{uid*}":
+    $ref: 'read/uid/uid.yaml'
+  "/api/user/{userslug}":
+    $ref: 'read/user/userslug.yaml'
+  "/api/user/{userslug}/following":
+    $ref: 'read/user/userslug/following.yaml'
+  "/api/user/{userslug}/followers":
+    $ref: 'read/user/userslug/followers.yaml'
+  "/api/user/{userslug}/categories":
+    $ref: 'read/user/userslug/categories.yaml'
+  "/api/user/{userslug}/tags":
+    $ref: 'read/user/userslug/tags.yaml'
+  "/api/user/{userslug}/posts":
+    $ref: 'read/user/userslug/posts.yaml'
+  "/api/user/{userslug}/topics":
+    $ref: 'read/user/userslug/topics.yaml'
+  "/api/user/{userslug}/shares":
+    $ref: 'read/user/userslug/shares.yaml'
+  "/api/user/{userslug}/best":
+    $ref: 'read/user/userslug/best.yaml'
+  "/api/user/{userslug}/controversial":
+    $ref: 'read/user/userslug/controversial.yaml'
+  "/api/user/{userslug}/groups":
+    $ref: 'read/user/userslug/groups.yaml'
+  "/api/user/{userslug}/bookmarks":
+    $ref: 'read/user/userslug/bookmarks.yaml'
+  "/api/user/{userslug}/watched":
+    $ref: 'read/user/userslug/watched.yaml'
+  "/api/user/{userslug}/ignored":
+    $ref: 'read/user/userslug/ignored.yaml'
+  "/api/user/{userslug}/read":
+    $ref: 'read/user/userslug/read.yaml'
+  "/api/user/{userslug}/upvoted":
+    $ref: 'read/user/userslug/upvoted.yaml'
+  "/api/user/{userslug}/downvoted":
+    $ref: 'read/user/userslug/downvoted.yaml'
+  "/api/user/{userslug}/edit":
+    $ref: 'read/user/userslug/edit.yaml'
+  "/api/user/{userslug}/edit/username":
+    $ref: 'read/user/userslug/edit/username.yaml'
+  "/api/user/{userslug}/edit/email":
+    $ref: 'read/user/userslug/edit/email.yaml'
+  "/api/user/{userslug}/edit/password":
+    $ref: 'read/user/userslug/edit/password.yaml'
+  "/api/user/{userslug}/info":
+    $ref: 'read/user/userslug/info.yaml'
+  "/api/user/{userslug}/settings":
+    $ref: 'read/user/userslug/settings.yaml'
+  "/api/user/{userslug}/uploads":
+    $ref: 'read/user/userslug/uploads.yaml'
+  "/api/user/{userslug}/consent":
+    $ref: 'read/user/userslug/consent.yaml'
+  "/api/user/{userslug}/blocks":
+    $ref: 'read/user/userslug/blocks.yaml'
+  "/api/user/{userslug}/sessions":
+    $ref: 'read/user/userslug/sessions.yaml'
+  "/api/user/{userslug}/session/{uuid}":
+    $ref: 'read/user/userslug/session/uuid.yaml'
+  /api/notifications:
+    $ref: 'read/notifications.yaml'
+  "/api/user/{userslug}/chats/{roomid}":
+    $ref: 'read/user/userslug/chats/roomid.yaml'
+  "/api/user/{userslug}/chats/{roomid}/{index}":
+    $ref: 'read/user/userslug/chats/roomid.yaml'
+  "/api/chats/{roomid}":
+    $ref: 'read/chats/roomid.yaml'
+  "/api/chats/{roomid}/{index}":
+    $ref: 'read/chats/roomid.yaml'
+  "/api/message/{mid}":
+    $ref: 'read/message/mid.yaml'
+  /api/groups:
+    $ref: 'read/groups.yaml'
+  "/api/groups/{slug}":
+    $ref: 'read/groups/slug.yaml'
+  "/api/groups/{slug}/members":
+    $ref: 'read/groups/slug/members.yaml'
+  /api/world:
+    $ref: 'read/world.yaml'
+  /api/ap:
+    $ref: 'read/ap.yaml'
+  /api/outgoing:
+    $ref: 'read/outgoing.yaml'

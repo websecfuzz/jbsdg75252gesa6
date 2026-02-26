@@ -7,15 +7,14 @@ import struct
 import traceback
 
 # Configuration
-#MYSQL_SERVER_HOST = 'db'
 MYSQL_SERVER_HOST = os.environ.get('DB_CONTAINER_NAME', "db")
 MYSQL_SERVER_PORT = 3306
-#PROXY_HOST = '127.0.0.1'
 PROXY_HOST = '0.0.0.0'
 PROXY_PORT = 3306
 WUT_NAME = os.environ.get('WUT_NAME', "")
+HOST_NAME = os.environ.get('HOST_NAME', "")
 FOLDER_NAME = os.environ.get('FOLDER_NAME', "/shared-data")
-LOG_FILE = f'{FOLDER_NAME}/mysql_proxy_{WUT_NAME}.log'
+LOG_FILE = f'{FOLDER_NAME}/mysql_proxy_{WUT_NAME}{HOST_NAME}.log'
 
 # MySQL type codes (partial)
 MYSQL_TYPES = {
@@ -42,27 +41,18 @@ class TZFormatter(logging.Formatter):
         return dt.timetuple()
 
 # Setup logging with timezone-aware timestamps
-# formatter = TZFormatter(fmt='%(asctime)s [%(levelname)s] %(message)s')
-# formatter = TZFormatter(fmt='[%(levelname)s] %(message)s')
 formatter = TZFormatter(fmt='%(message)s')
 handler = logging.FileHandler(LOG_FILE)
 handler.setFormatter(formatter)
 
-# logging.basicConfig(level=logging.INFO, handlers=[handler])
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(message)s')
 
 
-# Setup logging
-#logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
-#logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format=formatter)
 
 def log_query(recv_time, query, addr):
-#    logging.info(f"[{addr}] SQL Query: {query}")
-    # logging.info(f"[{addr}] ### {query}")
     logging.info(f"{recv_time.strftime('%Y-%m-%d %H:%M:%S,%f')} [INFO] [{addr}] ### {query}")
 
 def log_error(recv_time, error_msg, addr):
-    # logging.error(f"[{addr}] ### {error_msg}")
     logging.error(f"{recv_time.strftime('%Y-%m-%d %H:%M:%S,%f')} [ERROR] [{addr}] ### {error_msg}")
 
 def read_lenenc_str(buf, pos):
@@ -130,27 +120,16 @@ class MySQLProxy:
                 while not reader.at_eof():
                 # while True:
                     header = await reader.readexactly(4)
-                    # length, seq = struct.unpack('<I', header + b'\x00')[0] & 0xFFFFFF, header[3]
                     length = header[0] | (header[1] << 8) | (header[2] << 16)
                     seq = header[3]
                     payload = await reader.readexactly(length)
-
-
-
-                    # data = await reader.read(4096)
-                    # if not data:
-                    #     break
 
                     # Intercept client->server packets for SQL
                     if direction == "client->server":
                         recv_time = datetime.now()
                         try:
-                            # LOCAL_TZ = ZoneInfo("Europe/Amsterdam")  # replace with your timezone
-                            # recv_time = datetime.now(LOCAL_TZ)
-                            # query = self.extract_sql_query(reader, data)
                             query = self.extract_query(payload)
                             if query:
-                                # log_query(recv_time, query, addr)
                                 self.query_info[addr] = {
                                     "query": query,
                                     "start_time": recv_time
@@ -162,7 +141,6 @@ class MySQLProxy:
                     elif direction == "server->client":
                         # Check if we have a pending query for this client
                         if addr in self.query_info:
-                            # result_str = self.inspect_mysql_response(data)
                             results = self.inspect_sql_response(payload)
                             qinfo = self.query_info.pop(addr)
 
@@ -172,22 +150,13 @@ class MySQLProxy:
                             else:
                                 result_str = results
                             
-                            # if result_str:
-                            #     logging.info(
-                            #         f"[{addr}] Query: {qinfo['query']}\n"
-                            #         f"    Result: {result_str}\n"
-                            #     )
-                            
-                            log_query(qinfo['start_time'], f"{qinfo['query']} **{result_str}", addr)
+                            log_query(qinfo['start_time'], f"{qinfo['query']} *#*#{result_str}", addr)
 
-                    # writer.write(data)
-                    # await writer.drain()
                     writer.write(header)
                     writer.write(payload)
                     await writer.drain()
             except asyncio.IncompleteReadError as e:
                 # Connection closed gracefully
-                # logging.error(f"asyncio.IncompleteReadError: {e}")
                 pass
             except Exception as e:
                 logging.error(f"Relay error [{direction}]: {e}")
@@ -212,9 +181,7 @@ class MySQLProxy:
             # stmt_id is returned by server in the response
         elif cmd == 0x17:  # COM_STMT_EXECUTE
             stmt_id = struct.unpack_from('<I', payload, 1)[0]
-            # logging.info(f"STMT_ID: {str(stmt_id)}")
             sql_template, num_params = self.stmt_map.get(stmt_id, ("<unknown>", 0))
-            # logging.info(f"num_params: {str(num_params)}")
             if num_params>0:
                 pos = 5  # after stmt_id
                 pos += 1  # flags
@@ -240,18 +207,12 @@ class MySQLProxy:
 
                 return f"[COM_STMT_EXECUTE] {stmt_id} {str(params_values)}"
 
-                # # Substitute parameters into SQL
-                # filled_sql = sql_template
-                # for v in params_values:
-                #     filled_sql = filled_sql.replace("?", v, 1)
-                # return f"[COM_STMT_EXECUTE] {filled_sql}"
             else:
                 return f"[COM_STMT_EXECUTE]"
 
         return None
     
     def inspect_sql_response(self, payload) -> str:
-        # logging.info(f"Header: {str(header)}")
         header = payload[0]
         if payload and payload[0] == 0x00 and len(payload) >= 12:
             dat = {}
@@ -260,20 +221,12 @@ class MySQLProxy:
             dat['num_columns'] = struct.unpack_from('<H', payload, 5)[0]
             dat['num_params'] = struct.unpack_from('<H', payload, 7)[0]
 
-            # logging.info(f"Getting STMT_PREPARE_OK: {str(dat)}")
 
             return dat
-
-            # # store last SQL seen from client for this stmt_id
-            # # WARNING: This assumes COM_STMT_PREPARE was last
-            # # In practice, track in client->server branch
-            # last_sql = getattr(handle_client, "last_sql", "<unknown>")
-            # stmt_map[stmt_id] = (last_sql, num_params)
 
         if header in (0x00, 0xFE):  # OK packet
             return "OK"
         elif header == 0xFF:  # ERR packet
-            ## payload[0] = data[4]
             if len(payload) >= 5:
                 err_code = payload[1] | (payload[2] << 8)
                 err_msg = payload[5:].decode('utf-8', errors='ignore')
@@ -304,17 +257,6 @@ class MySQLProxy:
         elif command == 0x16:  # COM_STMT_PREPARE
             sql = data[5:5+packet_length-1].decode('utf-8', errors='ignore')
             return f"[STMT_PREPARE] {sql}"
-
-        # elif command == 0x17:  # COM_STMT_EXECUTE
-        #     header = await src_reader.readexactly(4)
-        #     length, seq = struct.unpack('<I', header + b'\x00')[0] & 0xFFFFFF, header[3]
-        #     payload = await src_reader.readexactly(length)
-            
-        #     stmt_id = struct.unpack('<I', payload[1:5])[0]
-        #     # params = "[binary parameters omitted]"
-        #     # sql = stmt_map.get(stmt_id, "<unknown>")
-        #     # print(f"[COM_STMT_EXECUTE] stmt_id={stmt_id} sql={sql} params={params}")
-        #     return f"[COM_STMT_EXECUTE] stmt_id={stmt_id}"
 
         return None
 

@@ -3,6 +3,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ## HOW TO USE: ./sh <WUT_NAME> <PORT> <HOME_URL> <OPENAPIFILENAME> <FUZZER_NAME>>
 ## EXAMPLE: ./sh wordpress3 8081 / openapi.json
 
+export HOST_NAME=$(hostname)
 export WUT_NAME=$1
 export WUT_PORT=$2
 export WUT_URL="http://localhost:$2"
@@ -11,19 +12,32 @@ export OPENAPI_FILE=$4
 export FUZZER_NAME=$5
 
 ## DELETE SHARED-DATA
-mv ../shared-data/mysql_proxy_$WUT_NAME.log ../shared-data/mysql_proxy_$WUT_NAME.log.old
+mv ../shared-data/mysql_proxy_$WUT_NAME$HOST_NAME.log ../shared-data/mysql_proxy_$WUT_NAME$HOST_NAME.log.old
 
 ## RUNNING WUT
 cd ../
 cd WUT/$WUT_NAME
+if [[ -z "${COMPOSE_FILE+x}" ]]; then
+  echo "COMPOSE_FILE is NOT set"
+else
+  echo "COMPOSE_FILE is set to: $COMPOSE_FILE"
+fi
 docker compose up --detach --force-recreate
+
+source $SCRIPT_DIR/../venv/bin/activate
 
 ## CHECK WUT AVAILABLE OR NOT
 cd $SCRIPT_DIR
 ./check_server.sh localhost $2 $TARGET_URL
 
+## Running Reverse Proxy with SQLiFuzz Addon
+cd $SCRIPT_DIR
+cd ../
+mitmdump --mode reverse:$WUT_URL --flow-detail 0 --set flow_storage=memory-limited --quiet --listen-port 8888 -s sqlifuzz/mitmproxy_addon.py &
+WEB_PROXY_PID=$!
+
 ## CALL LOGIN MODULE
-source ../venv/bin/activate
+cd $SCRIPT_DIR
 cd ../crawler
 python login.py
 
@@ -38,8 +52,10 @@ fi
 
 # Load the cookie string from the file
 export cookie_line=$(<"$COOKIE_FILE")
+echo "Getting Cookie line >> '$cookie_line'"
+
 # Optionally extract just the cookie value (removes "Cookie": part)
-cookie_value=$(echo "$cookie_line" | sed 's/^"Cookie": "//;s/"$//')
+export cookie_value=$(echo "$cookie_line" | sed 's/^"Cookie": "//;s/"$//')
 
 ## CHECK IF THERE IS A SPECIAL HEADER FILE
 HEADER_FILE="../WUT/$WUT_NAME/_resources/header"
@@ -48,21 +64,13 @@ if [[ -f "$HEADER_FILE" ]]; then
     export cookie_line=$(<"$HEADER_FILE")
 fi
 
-## Running Reverse Proxy
-cd $SCRIPT_DIR
-cd ../
-mitmdump --mode reverse:$WUT_URL --flow-detail 0 --set flow_storage=memory-limited --quiet --listen-port 8888 -s crawler/mitmproxy_addon.py &
-WEB_PROXY_PID=$!
-
+## RUNNING THE CRAWLER / API SCANNER
 cd $SCRIPT_DIR
 ./${FUZZER_NAME}.sh $6
 
-# Optionally: wait for some time (e.g., to capture traffic for 1 minutes)
-sleep 60
-echo "KILL WEB_PROXY_PID $WEB_PROXY_PID"
-kill $WEB_PROXY_PID
+./check_mitm.sh
 
 cd $SCRIPT_DIR
 cd ../
-cd crawler_WUT/$WUT_NAME
+cd WUT/$WUT_NAME
 docker compose down

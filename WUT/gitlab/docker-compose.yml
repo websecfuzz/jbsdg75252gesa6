@@ -10,6 +10,7 @@ services:
       - PYTHONUNBUFFERED=1
       - WUT_NAME=${WUT_NAME}
       - DB_CONTAINER_NAME=postgres
+      - HOST_NAME=${HOST_NAME}
     depends_on:
       - postgres
         
@@ -56,8 +57,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    volumes:
-      - redis_data:/data
+#    volumes:
+#      - redis_data:/data
 
   gitlab:
     image: gitlab/gitlab-ce:${GITLAB_IMAGE_TAG}
@@ -119,16 +120,16 @@ services:
         # prometheus['enable'] = true
 
     shm_size: "1g"   # GitLab’s embedded services benefit from some shm
-    volumes:
-      - gitlab_config:/etc/gitlab
-      - gitlab_logs:/var/log/gitlab
-      - gitlab_data:/var/opt/gitlab
-      # Optional: mount custom TLS certs (if you terminate TLS inside GitLab)
-      # - ./certs:/etc/gitlab/ssl:ro
+#    volumes:
+#      - gitlab_config:/etc/gitlab
+#      - gitlab_logs:/var/log/gitlab
+#      - gitlab_data:/var/opt/gitlab
+#      # Optional: mount custom TLS certs (if you terminate TLS inside GitLab)
+#      # - ./certs:/etc/gitlab/ssl:ro
 
-volumes:
-  pg_data:
-  redis_data:
-  gitlab_config:
-  gitlab_logs:
-  gitlab_data:
+#volumes:
+#  pg_data:
+#  redis_data:
+#  gitlab_config:
+#  gitlab_logs:
+#  gitlab_data:

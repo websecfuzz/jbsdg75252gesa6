@@ -1,0 +1,9 @@
+FROM chialab/php:8.1-apache
+
+ARG APP
+COPY ${APP}/ /var/www/html/
+ENV WUT_NAME=${APP}
+
+COPY entrypoint.php81.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

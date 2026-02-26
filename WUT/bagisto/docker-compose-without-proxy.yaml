@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8801:8080
+
+  web:
+    image: webkul/bagisto:2.3.6
+    depends_on:
+      - mysql
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+      DB_CONNECTION: mysql
+      DB_HOST: dbproxy
+      DB_DATABASE: db
+      DB_USERNAME: user
+      DB_PASSWORD: password
+      USER_PASSWORD: admin123
+      SANCTUM_STATEFUL_DOMAINS: http://localhost:8081
+    ports:
+      - "8081:80"
+    volumes:
+      - ./_resources:/res
+    command: >
+      sh -c "/res/wait-for-it.sh mysql:3306 -t 100 -- composer require bagisto/rest-api dev-master && php artisan bagisto-rest-api:install && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+
+  mysql:
+    #image: mysql:8.4.0
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM mysql:8.4.0
+        COPY ./_resources/db.sql /docker-entrypoint-initdb.d/db.sql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    restart: always
+    networks:
+      default:
+        aliases:
+          - dbproxy

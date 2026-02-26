@@ -1,0 +1,16 @@
+[GENERALFUNC 964] Found Error Query: ["select * from `attributes` order by `vib'` desc limit 10 offset 0 *#*#ERROR 1054: 2S22Unknown column 'vib'' in 'order clause'"] from GET http://localhost:8081/api/v1/attributes | ['[string (False)(None)] path2=attributes', "[string (False)(None)] sort=vib'"] | None
+[GENERALFUNC 964] found_value: vib'
+
+[SQLiFuzz 964] Weird chars is detected: GET http://localhost:8081/api/v1/attributes | ['[string (False)(None)] path2=attributes', "[string (False)(None)] sort=vib'"] | None --> ["select * from attributes order by vib' desc limit 10 offset 0 *#*#error 1054: 2s22unknown column 'vib'' in 'order clause'"]
+
+
+###Matched SQL Injection Detected: [METHOD] | [URL] | [PARAMS] | [POST_DATA] [MATCHED_PAYLOAD] ==> [SQLi_DETECTED]
+1. GET | http://localhost:8081/api/v1/attribute-families | limit=10&page=633&sort=%2A |  [*] ==> select * from attribute_families order by * desc limit 10 offset 6320 *#*#error 1064: 2000you have an error in your sql syntax; check the manual that corresponds to your mysql server version for the right syntax to use near '* desc limit 10 offset 6320' at line 1
+
+
+2026-02-02 09:29:51,092615 [INFO] [('172.18.0.5', 33466)] ### select * from `attribute_families` order by * desc limit 10 offset 6320 *#*#ERROR 1064: 2000You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* desc limit 10 offset 6320' at line 1
+
+
+2026-02-02 09:30:58,359422 [INFO] [('172.18.0.5', 51778)] ### select * from `attribute_families` order by `--` desc limit 10 offset 6320 *#*#ERROR 1054: 2S22Unknown column '--' in 'order clause'
+
+

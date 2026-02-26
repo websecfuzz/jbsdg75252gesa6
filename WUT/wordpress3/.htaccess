@@ -1,3 +1,17 @@
+# Allow custom headers to pass through to PHP
+# This enables forms_id and domain_id headers to be accessible via $_SERVER
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP:forms_id} ^(.+)$
+    RewriteRule .* - [E=HTTP_FORMS_ID:%1]
+    RewriteCond %{HTTP:domain_id} ^(.+)$
+    RewriteRule .* - [E=HTTP_DOMAIN_ID:%1]
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Allow these headers in CORS
+    Header always set Access-Control-Allow-Headers "Authorization, Content-Type, forms_id, domain_id"
+</IfModule>
 
 # BEGIN WordPress
 # The directives (lines) between "BEGIN WordPress" and "END WordPress" are

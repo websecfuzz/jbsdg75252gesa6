@@ -3,4 +3,4 @@ cd ../
 
 TARGET_PROXY_URL="${1:-http://localhost:8888}"
 
-schemathesis run --header "$cookie_line" --url $TARGET_PROXY_URL crawler_WUT/$WUT_NAME/_resources/$OPENAPI_FILE |& tee log/schemathesis-$WUT_NAME.log
+schemathesis run --header "$cookie_line" --continue-on-failure --max-examples 10 --url $TARGET_PROXY_URL WUT/$WUT_NAME/_resources/$OPENAPI_FILE |& tee log/schemathesis-$WUT_NAME.log

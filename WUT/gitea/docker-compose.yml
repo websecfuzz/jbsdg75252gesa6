@@ -12,33 +12,20 @@ services:
       - PYTHONUNBUFFERED=1
       - WUT_NAME=${WUT_NAME}
       - DB_CONTAINER_NAME=db
+      - HOST_NAME=${HOST_NAME}
     depends_on:
       - db
 
-  phpmyadmin:
-    image: phpmyadmin:5.2.1
-    ports:
-      - "8801:80"
-    links:
-      - db:db
 
   server:
-    # image: docker.gitea.com/gitea:1.24.5-rootless
-    # environment:
-    #   - GITEA__database__DB_TYPE=mysql
-    #   - GITEA__database__HOST=db:3306
-    #   - GITEA__database__NAME=gitea
-    #   - GITEA__database__USER=gitea
-    #   - GITEA__database__PASSWD=gitea
     build:
       context: .
       dockerfile_inline: |
-        FROM docker.gitea.com/gitea:1.24.5-rootless
+        #FROM docker.gitea.com/gitea:1.24.5-rootless
+        FROM gitea/gitea:1.24.5-rootless
         COPY ./_resources/app.ini /etc/gitea/app.ini
     restart: always
     volumes:
-      # - data:/var/lib/gitea
-      # - config:/etc/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
@@ -61,12 +48,3 @@ services:
       MYSQL_ROOT_PASSWORD: gitea
       MYSQL_ROOT_HOST: "%"
       MYSQL_USER_HOST: "%"
-
-  # db:
-  #   image: docker.io/library/mysql:8
-  #   restart: always
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=gitea
-  #     - MYSQL_USER=gitea
-  #     - MYSQL_PASSWORD=gitea
-  #     - MYSQL_DATABASE=gitea
